@@ -218,6 +218,14 @@ No phone or simulator needed — just your computer's web browser!
 
 ---
 
+#### 🔗 Option E — Use the Deployed Web Version (GitHub Pages)
+
+If you just want to open the live deployed site, use this link:
+
+[https://bridgetkimball.github.io/Liturgia-Daily/](https://bridgetkimball.github.io/Liturgia-Daily/)
+
+---
+
 ### Stopping the App
 
 To stop the development server at any time, go back to your terminal and press **Ctrl + C** (hold the Control key and press C).
