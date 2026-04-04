@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   heading: {
-    color: 'rgba(212,175,55,0.75)',
+    color: 'rgba(255,255,255,0.55)',
     fontSize: 11,
     fontWeight: '600',
     letterSpacing: 2,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   appName: {
-    color: 'rgba(212,175,55,0.85)',
+    color: 'rgba(255,255,255,0.7)',
     fontSize: 9,
     fontWeight: '700',
     letterSpacing: 1.5,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   seasonLabel: {
-    color: '#D4AF37',
+    color: '#fff',
     fontSize: 13,
     fontWeight: '700',
     textAlign: 'center',
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   colorName: {
-    color: 'rgba(212,175,55,0.9)',
+    color: 'rgba(255,255,255,0.75)',
     fontSize: 10,
     fontWeight: '600',
     letterSpacing: 0.5,
