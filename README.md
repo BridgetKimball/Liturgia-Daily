@@ -1,6 +1,6 @@
 # Liturgia Daily
 
-A Catholic widget and mobile app that displays the **liturgical color of the day** so the faithful can easily stay connected to the rhythm of the Church's calendar.
+A Catholic mobile and web app that displays the **liturgical color of the day** so the faithful can easily stay connected to the rhythm of the Church's calendar.
 
 ---
 
@@ -13,15 +13,14 @@ A Catholic widget and mobile app that displays the **liturgical color of the day
 5. [App Screens Overview](#app-screens-overview)
 6. [Tech Stack](#tech-stack)
 7. [Getting Started](#getting-started)
-8. [Widget Setup](#widget-setup)
-9. [Contributing](#contributing)
-10. [References](#references)
+8. [Contributing](#contributing)
+9. [References](#references)
 
 ---
 
 ## About the App
 
-**Liturgia Daily** is a lightweight Catholic widget and mobile application designed to help Catholics keep track of the liturgical season at a glance. Each day the app displays the appropriate liturgical color, reflecting the season or feast being celebrated in the Roman Rite of the Catholic Church.
+**Liturgia Daily** is a lightweight Catholic mobile and web application designed to help Catholics keep track of the liturgical season at a glance. Each day the app displays the appropriate liturgical color, reflecting the season or feast being celebrated in the Roman Rite of the Catholic Church.
 
 The name *Liturgia* comes from the Latin/Greek word for "liturgy" — the public worship of the Church.
 
@@ -67,7 +66,7 @@ Future updates may include:
 
 | Screen | Description |
 |--------|-------------|
-| **Home / Widget** | Shows today's liturgical color as a bold background or color swatch, with the name of the season or feast |
+| **Home** | Shows today's liturgical color as a bold background or color swatch, with the name of the season or feast |
 | **Day Detail** | Expanded view with the liturgical color, season name, and (in future updates) saint of the day, prayer, and Bible verse |
 | **Calendar** | *(Planned)* Monthly calendar with liturgical color coding for each day |
 | **Settings** | *(Planned)* Options for notifications, language/localization, and calendar preferences |
@@ -180,7 +179,7 @@ The app will load on your phone within a few seconds! 🎉
 
 #### 🍎 Option B — Run on iOS (iPhone Simulator on a Mac)
 
-> **Note:** This option requires a **Mac computer** with Xcode installed.
+> **Note:** This option requires a **Mac computer** with Xcode installed, but it does **not** require an Apple Developer Program account.
 
 1. Install [Xcode](https://apps.apple.com/us/app/xcode/id497799835) from the Mac App Store (it's free but large — about 10 GB).
 2. Open Xcode at least once to accept the license agreement and let it finish installing extra tools.
@@ -233,522 +232,23 @@ To run the automated tests and make sure everything is working:
 npm test
 ```
 
----
+### Add the App to Your Home Screen
 
-## Widget Setup
+If you want a home screen icon without a paid Apple Developer account, use the web version of the app in Safari or Chrome and add it as a shortcut.
 
-The in-app **Widget Preview** (visible at the bottom of the Home screen) shows exactly what the native widget will look like. Follow the steps in this section to install a real, live widget on your device's **home screen** or **lock screen**.
+#### On iPhone or iPad
 
-> **Note:** Native widgets run outside of Expo Go and require a full native build. You will use **EAS Build** (Expo's free cloud build service) to produce the installable app file.
+1. Open Safari and visit the web version of the app.
+2. Tap the Share button.
+3. Scroll down and tap **Add to Home Screen**.
+4. Tap **Add**.
 
----
+#### On Android
 
-### Widget Prerequisites
-
-Before you begin, make sure you have:
-
-- Completed the [Getting Started](#getting-started) steps above and can run the app successfully.
-- A free [Expo account](https://expo.dev/signup) — sign up at expo.dev.
-- **iOS only**: An [Apple Developer Program](https://developer.apple.com/programs/) membership ($99/year) is required to install the widget on a real iPhone/iPad. You also need a Mac with Xcode installed to accept Apple's signing certificates.
-- **Android only**: An Android device (physical or emulator) running Android 5.0 (API level 21) or later.
-
----
-
-### Step 1 — Install EAS CLI and Log In
-
-EAS (Expo Application Services) builds the native version of the app that supports widgets.
-
-1. In your terminal, install the EAS CLI globally:
-   ```bash
-   npm install -g eas-cli
-   ```
-
-2. Log in to your Expo account:
-   ```bash
-   eas login
-   ```
-   Enter your Expo email and password when prompted. ✅
-
-3. Inside the `Liturgia-Daily` folder, link the project to EAS:
-   ```bash
-   eas init
-   ```
-   Follow the on-screen prompts to connect your project. ✅
-
----
-
-### Step 2 — Install Widget Libraries
-
-Install the libraries that add native widget support to the app:
-
-```bash
-npm install react-native-widget-extension @react-native-async-storage/async-storage
-```
-
-- **`react-native-widget-extension`** — adds an iOS WidgetKit extension to your project automatically via an Expo config plugin.
-- **`@react-native-async-storage/async-storage`** — used to store and share liturgical data so the widget can read it.
-
----
-
-### Step 3 — Register the Config Plugin in `app.json`
-
-Open `app.json` in a text editor and update it to match the following (new lines are marked with comments):
-
-```json
-{
-  "expo": {
-    "name": "Liturgia Daily",
-    "slug": "liturgia-daily",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0A1628"
-    },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.liturgiadaily.app",
-      "entitlements": {
-        "com.apple.security.application-groups": ["group.com.liturgiadaily.app"]
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0A1628"
-      },
-      "package": "com.liturgiadaily.app",
-      "edgeToEdgeEnabled": true
-    },
-    "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
-    },
-    "plugins": [
-      [
-        "react-native-widget-extension",
-        {
-          "targetName": "LiturgiaWidget",
-          "entryPoints": ["widgets/ios/LiturgiaWidget.swift"]
-        }
-      ]
-    ]
-  }
-}
-```
-
-> The `entitlements` entry sets up the **App Group** that lets the main app and the widget share data. The `plugins` entry tells Expo to add the widget target to the Xcode project automatically at build time.
-
----
-
-### Step 4 — Write the Today-Data Hook in `HomeScreen.js`
-
-The widget needs to read today's liturgical data. Open `src/screens/HomeScreen.js` and add the following import and `useEffect` so the app writes today's data whenever it launches:
-
-```js
-// Add this import at the top of the file:
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// Inside the HomeScreen component, after the existing `info` calculation:
-React.useEffect(() => {
-  AsyncStorage.multiSet([
-    ['season',   info.season],
-    ['color',    info.color],
-    ['colorHex', info.colorHex],
-  ]);
-}, [info]);
-```
-
-> On iOS, `AsyncStorage` writes to `UserDefaults` using the App Group suite identifier, making the values readable by the Swift widget extension. The widget will always display the most recently opened day's data.
-
----
-
-### Step 5 — Create the iOS Widget (Swift / WidgetKit)
-
-> **What is WidgetKit?** It is Apple's framework for building home screen and lock screen widgets. Widgets are written in **Swift** — a language similar to JavaScript that Apple developed for iOS/macOS development. You do not need to be a Swift expert to follow these steps; just copy the code below exactly.
-
-#### 5a. Create the widget folder
-
-In your terminal (inside the `Liturgia-Daily` folder), run:
-
-```bash
-mkdir -p widgets/ios
-```
-
-#### 5b. Create the widget file
-
-Create the file `widgets/ios/LiturgiaWidget.swift` and paste in the following code:
-
-```swift
-import WidgetKit
-import SwiftUI
-
-// ── Data model ─────────────────────────────────────────────────────────────
-
-struct LiturgiaEntry: TimelineEntry {
-    let date: Date
-    let season: String
-    let color: String
-    let colorHex: String
-}
-
-// ── Timeline provider ───────────────────────────────────────────────────────
-
-struct LiturgiaProvider: TimelineProvider {
-
-    func placeholder(in context: Context) -> LiturgiaEntry {
-        LiturgiaEntry(date: Date(), season: "Ordinary Time", color: "Green", colorHex: "#4A7C59")
-    }
-
-    func getSnapshot(in context: Context, completion: @escaping (LiturgiaEntry) -> Void) {
-        completion(loadEntry())
-    }
-
-    func getTimeline(in context: Context, completion: @escaping (Timeline<LiturgiaEntry>) -> Void) {
-        let entry = loadEntry()
-        // Refresh at the start of the next calendar day
-        let tomorrow = Calendar.current.startOfDay(for: Date().addingTimeInterval(86_400))
-        completion(Timeline(entries: [entry], policy: .after(tomorrow)))
-    }
-
-    private func loadEntry() -> LiturgiaEntry {
-        // Read data written by the main app via AsyncStorage (App Group UserDefaults)
-        let defaults = UserDefaults(suiteName: "group.com.liturgiadaily.app")
-        let season   = defaults?.string(forKey: "season")   ?? "Ordinary Time"
-        let color    = defaults?.string(forKey: "color")    ?? "Green"
-        let colorHex = defaults?.string(forKey: "colorHex") ?? "#4A7C59"
-        return LiturgiaEntry(date: Date(), season: season, color: color, colorHex: colorHex)
-    }
-}
-
-// ── Widget view ─────────────────────────────────────────────────────────────
-
-struct LiturgiaWidgetView: View {
-    var entry: LiturgiaEntry
-
-    var body: some View {
-        ZStack {
-            Color(hex: entry.colorHex).opacity(0.85)
-            VStack(spacing: 4) {
-                Text("✝")
-                    .font(.title2)
-                    .opacity(0.7)
-                Text("LITURGIA")
-                    .font(.system(size: 8, weight: .bold))
-                    .tracking(1.5)
-                    .opacity(0.7)
-                Text(entry.season)
-                    .font(.system(size: 13, weight: .bold))
-                    .multilineTextAlignment(.center)
-                Circle()
-                    .fill(Color.white.opacity(0.6))
-                    .frame(width: 7, height: 7)
-                Text(entry.color)
-                    .font(.system(size: 10, weight: .semibold))
-            }
-            .foregroundColor(.white)
-            .padding(8)
-        }
-    }
-}
-
-// ── Accessory (lock screen) views ───────────────────────────────────────────
-
-struct LiturgiaCircularView: View {
-    var entry: LiturgiaEntry
-    var body: some View {
-        ZStack {
-            Color(hex: entry.colorHex)
-            Text("✝").font(.title3)
-        }
-        .foregroundColor(.white)
-    }
-}
-
-struct LiturgiaRectangularView: View {
-    var entry: LiturgiaEntry
-    var body: some View {
-        HStack(spacing: 6) {
-            Text("✝")
-            Text(entry.season).bold()
-        }
-        .font(.caption)
-        .foregroundColor(.white)
-    }
-}
-
-// ── Widget entry view (dispatches to the correct view per family) ─────────────
-
-struct LiturgiaWidgetEntryView: View {
-    var entry: LiturgiaEntry
-    @Environment(\.widgetFamily) var family
-
-    var body: some View {
-        if #available(iOSApplicationExtension 16.0, *) {
-            switch family {
-            case .accessoryCircular:
-                LiturgiaCircularView(entry: entry)
-            case .accessoryRectangular:
-                LiturgiaRectangularView(entry: entry)
-            default:
-                LiturgiaWidgetView(entry: entry)
-            }
-        } else {
-            LiturgiaWidgetView(entry: entry)
-        }
-    }
-}
-
-// ── Color helper ────────────────────────────────────────────────────────────
-
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let r = Double((int >> 16) & 0xFF) / 255
-        let g = Double((int >> 8)  & 0xFF) / 255
-        let b = Double(int         & 0xFF) / 255
-        self.init(red: r, green: g, blue: b)
-    }
-}
-
-// ── Widget configuration ─────────────────────────────────────────────────────
-
-@main
-struct LiturgiaWidget: Widget {
-    let kind = "LiturgiaWidget"
-
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: LiturgiaProvider()) { entry in
-            LiturgiaWidgetEntryView(entry: entry)
-        }
-        .configurationDisplayName("Liturgia Daily")
-        .description("Today's liturgical color and season at a glance.")
-        .supportedFamilies(supportedFamilies)
-    }
-
-    private var supportedFamilies: [WidgetFamily] {
-        if #available(iOSApplicationExtension 16.0, *) {
-            return [
-                .systemSmall,
-                .systemMedium,
-                .accessoryCircular,     // lock screen (iOS 16+)
-                .accessoryRectangular,  // lock screen (iOS 16+)
-            ]
-        }
-        return [.systemSmall, .systemMedium]
-    }
-}
-```
-
-> **Lock screen sizes explained:**
-> - `.accessoryCircular` — a small circular slot below the clock on the lock screen.
-> - `.accessoryRectangular` — a wider rectangular slot on the lock screen.
-> Both sizes are supported only on **iOS 16 and later**.
-
----
-
-### Step 6 — Create the Android Widget
-
-Android widgets use XML layouts and a Kotlin class (`AppWidgetProvider`) to update the display. These files live inside the Android project that Expo generates during a build.
-
-#### 6a. Create the widget layout
-
-Create the directory path and file:
-
-```
-android/app/src/main/res/layout/liturgia_widget.xml
-```
-
-Paste in the following XML:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="8dp"
-    android:background="#CC0A1628">
-
-    <TextView
-        android:id="@+id/widget_cross"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="✝"
-        android:textSize="20sp"
-        android:textColor="#D4AF37" />
-
-    <TextView
-        android:id="@+id/widget_season"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ordinary Time"
-        android:textSize="13sp"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:gravity="center" />
-
-    <TextView
-        android:id="@+id/widget_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Green"
-        android:textSize="11sp"
-        android:textColor="#D4AF37" />
-
-</LinearLayout>
-```
-
-#### 6b. Create the widget info file
-
-Create the directory path and file:
-
-```
-android/app/src/main/res/xml/liturgia_widget_info.xml
-```
-
-Paste in the following XML:
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="110dp"
-    android:minHeight="40dp"
-    android:updatePeriodMillis="86400000"
-    android:initialLayout="@layout/liturgia_widget"
-    android:widgetCategory="home_screen"
-    android:description="Today\'s liturgical color and season." />
-```
-
-#### 6c. Create the widget provider class
-
-Create the directory path and file:
-
-```
-android/app/src/main/java/com/liturgiadaily/app/LiturgiaWidgetProvider.kt
-```
-
-Paste in the following Kotlin code:
-
-```kotlin
-package com.liturgiadaily.app
-
-import android.appwidget.AppWidgetManager
-import android.appwidget.AppWidgetProvider
-import android.content.Context
-import android.widget.RemoteViews
-
-class LiturgiaWidgetProvider : AppWidgetProvider() {
-
-    override fun onUpdate(
-        context: Context,
-        appWidgetManager: AppWidgetManager,
-        appWidgetIds: IntArray
-    ) {
-        // Read data written by the React Native app
-        val prefs = context.getSharedPreferences("liturgia_widget_data", Context.MODE_PRIVATE)
-        val season = prefs.getString("season", "Ordinary Time") ?: "Ordinary Time"
-        val color  = prefs.getString("color",  "Green")         ?: "Green"
-
-        for (id in appWidgetIds) {
-            val views = RemoteViews(context.packageName, R.layout.liturgia_widget)
-            views.setTextViewText(R.id.widget_season, season)
-            views.setTextViewText(R.id.widget_color,  color)
-            appWidgetManager.updateAppWidget(id, views)
-        }
-    }
-}
-```
-
-#### 6d. Register the widget in `AndroidManifest.xml`
-
-Open `android/app/src/main/AndroidManifest.xml` and paste the following block just **before** the closing `</application>` tag:
-
-```xml
-<receiver
-    android:name=".LiturgiaWidgetProvider"
-    android:exported="true">
-    <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-    </intent-filter>
-    <meta-data
-        android:name="android.appwidget.provider"
-        android:resource="@xml/liturgia_widget_info" />
-</receiver>
-```
-
-> **How does the data flow?** The React Native app writes today's season and color to `SharedPreferences` (via `AsyncStorage`) whenever it opens. The `LiturgiaWidgetProvider` reads those values and updates the widget views.
-
----
-
-### Step 7 — Build and Install the App
-
-Once you have created all the files above, run an EAS development build:
-
-**iOS:**
-
-```bash
-eas build --platform ios --profile development
-```
-
-**Android:**
-
-```bash
-eas build --platform android --profile development
-```
-
-> These commands upload your project to Expo's cloud build servers and return a download link when finished. The build may take 5–15 minutes.
-
-After the build finishes:
-
-- **iOS** — Open the download link on your iPhone. You may need to go to **Settings → General → VPN & Device Management** and trust your developer certificate before the app will open.
-- **Android** — Download the `.apk` file and open it on your device. If prompted, allow installs from unknown sources under **Settings → Apps → Special App Access → Install Unknown Apps**.
-
----
-
-### Step 8 — Add the Widget to Your Home Screen
-
-#### 📱 On iPhone / iPad (iOS 14 or later)
-
-1. Press and hold any **empty spot** on your Home Screen until the apps start to jiggle.
-2. Tap the **＋** (plus) button in the top-left corner of the screen.
-3. In the widget gallery that appears, **search for "Liturgia"** or scroll down to find it.
-4. Tap the **Liturgia Daily** widget.
-5. Swipe left or right to choose a widget size (small or medium) and tap **Add Widget**.
-6. Drag the widget to the position you want, then tap **Done** in the top-right corner. ✅
-
-#### 🤖 On Android
-
-1. Press and hold any **empty spot** on your Home Screen.
-2. Tap **Widgets** from the menu that appears at the bottom of the screen.
-3. Scroll through the list or type **"Liturgia"** in the search bar.
-4. Press and hold the **Liturgia Daily** widget thumbnail, then drag it to the desired location on your Home Screen.
-5. Release to place the widget. ✅
-
----
-
-### Step 9 — Add the Widget to Your Lock Screen (iPhone — iOS 16 or later)
-
-Apple introduced lock screen widgets in iOS 16. The Liturgia Daily widget supports both the circular and rectangular lock screen slots.
-
-1. Wake your iPhone and press and hold the **Lock Screen** until a **Customize** button appears at the bottom.
-2. Tap **Customize**.
-3. Tap the **Lock Screen** tile (the left tile, not the Home Screen tile).
-4. Tap the **widget area just below the clock** — the row of small circular or rectangular placeholder slots.
-5. Scroll the widget picker and tap **Liturgia Daily**.
-6. Select the style you prefer:
-   - **Circular** — shows the cross (✝) icon in today's liturgical color.
-   - **Rectangular** — shows the cross and season name side by side.
-7. Tap anywhere outside the customisation panel, then tap **Done** to save. ✅
-
-> You can now see today's liturgical color and season on your lock screen **without unlocking your phone**!
+1. Open Chrome and visit the web version of the app.
+2. Tap the three-dot menu.
+3. Tap **Add to Home screen** or **Install app**.
+4. Confirm the shortcut.
 
 ---
 

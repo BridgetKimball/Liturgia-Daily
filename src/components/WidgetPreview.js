@@ -11,7 +11,6 @@ export default function WidgetPreview({ info }) {
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.heading}>Widget Preview</Text>
       <View style={[styles.widget, { backgroundColor: colorHex }]}>
         <Text style={[styles.cross, { color: darkColorHex }]}>✝</Text>
         <Text style={styles.appName}>Liturgia</Text>

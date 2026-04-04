@@ -16,7 +16,15 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.liturgiadaily.app",
       "entitlements": {
-        "com.apple.security.application-groups": ["group.com.liturgiadaily.app"]
+        "com.apple.security.application-groups": [
+          "group.com.liturgiadaily.app",
+          "group.com.liturgiadaily.app"
+        ]
+      },
+      "infoPlist": {
+        "NSSupportsLiveActivities": true,
+        "NSSupportsLiveActivitiesFrequentUpdates": false,
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -36,9 +44,30 @@
         "react-native-widget-extension",
         {
           "targetName": "LiturgiaWidget",
-          "entryPoints": ["widgets/ios/LiturgiaWidget.swift"]
+          "entryPoints": [
+            "widgets/ios/LiturgiaWidget.swift"
+          ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "build": {
+          "experimental": {
+            "ios": {
+              "appExtensions": [
+                {
+                  "targetName": "LiturgiaDailyWidgets",
+                  "bundleIdentifier": "com.liturgiadaily.app.LiturgiaDailyWidgets",
+                  "entitlements": {}
+                }
+              ]
+            }
+          }
+        },
+        "projectId": "b0b6e7da-c3fa-4c02-a269-881ac307021e"
+      }
+    },
+    "owner": "tegdirbllabmik"
   }
 }

@@ -1,4 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useMemo } from 'react';
 import {
   Platform,
@@ -53,6 +54,14 @@ export default function HomeScreen() {
   const info = useMemo(() => getLiturgicalInfo(today), [today]);
 
   const [gradTop, gradBottom] = gradientColors(info);
+
+  React.useEffect(() => {
+  AsyncStorage.multiSet([
+    ['season',   info.season],
+    ['color',    info.color],
+    ['colorHex', info.colorHex],
+  ]);
+}, [info]);
 
   return (
     <LinearGradient colors={[gradTop, gradBottom]} style={styles.gradient}>
