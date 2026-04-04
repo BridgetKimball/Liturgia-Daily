@@ -86,35 +86,118 @@ Future updates may include:
 
 Liturgia Daily is an **Expo React Native** app. It runs on **iOS**, **Android**, and **Web** from a single codebase.
 
-### Prerequisites
+---
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
-- [npm](https://www.npmjs.com/) (comes with Node.js)
-- [Expo Go](https://expo.dev/go) app installed on your iOS or Android device (for mobile testing), **or** an iOS Simulator / Android Emulator
+### Step 1 — Install Prerequisites
 
-### Setup
+Before running the app, make sure you have the following installed:
 
-1. Clone the repository:
+1. **Node.js** (v18 or later) — [Download here](https://nodejs.org/)
+   - npm comes bundled with Node.js, so no separate install is needed.
+   - Verify your installation by running:
+     ```bash
+     node --version
+     npm --version
+     ```
+
+2. **Git** — [Download here](https://git-scm.com/)
+   - Verify with:
+     ```bash
+     git --version
+     ```
+
+---
+
+### Step 2 — Clone the Repository
+
+Open your terminal and run:
+
+```bash
+git clone https://github.com/BridgetKimball/Liturgia-Daily.git
+cd Liturgia-Daily
+```
+
+---
+
+### Step 3 — Install Dependencies
+
+Inside the project folder, install all required packages:
+
+```bash
+npm install
+```
+
+This installs Expo, React Native, and all other dependencies listed in `package.json`.
+
+---
+
+### Step 4 — Run the App
+
+Choose your platform below:
+
+---
+
+#### 📱 Run on iOS — Physical Device (Easiest, no Mac required)
+
+1. Install the **Expo Go** app on your iPhone from the [App Store](https://apps.apple.com/app/expo-go/id982107779).
+2. In the project folder, start the development server:
    ```bash
-   git clone https://github.com/BridgetKimball/Liturgia-Daily.git
-   cd Liturgia-Daily
+   npm start
    ```
+3. A QR code will appear in your terminal and in the browser that opens.
+4. Open the **Camera app** on your iPhone and point it at the QR code.
+5. Tap the notification banner that appears — this opens the app in **Expo Go**.
 
-2. Install dependencies:
+> **Note:** Your phone and computer must be on the **same Wi-Fi network**.
+
+---
+
+#### 🖥️ Run on iOS — Simulator (Mac only)
+
+1. Make sure you have **Xcode** installed from the [Mac App Store](https://apps.apple.com/app/xcode/id497799835).
+2. Open Xcode at least once to accept its license agreement and install required components.
+3. In the project folder, run:
    ```bash
-   npm install
+   npm run ios
    ```
+4. Expo will automatically launch the iOS Simulator and open the app inside it.
 
-### Running the App
+> **Note:** This option requires **macOS**. It will not work on Windows or Linux.
 
-| Platform | Command | Notes |
-|----------|---------|-------|
-| **Expo Dev Server** (choose platform interactively) | `npm start` | Opens Expo CLI; press `i` for iOS, `a` for Android, `w` for web |
-| **iOS** | `npm run ios` | Requires macOS with Xcode or an iOS Simulator |
-| **Android** | `npm run android` | Requires Android Studio / Emulator or a connected device |
-| **Web** | `npm run web` | Opens the app in your default browser |
+---
 
-> **Tip — mobile device**: Start the dev server with `npm start`, then scan the QR code with the **Expo Go** app on your phone to run the app instantly without a simulator.
+#### 🌐 Run on Web (Any computer)
+
+1. In the project folder, run:
+   ```bash
+   npm run web
+   ```
+2. Your default browser will automatically open with the app running at `http://localhost:8081`.
+3. If the browser doesn't open automatically, navigate to that URL manually.
+
+---
+
+#### 🤖 Run on Android
+
+| Method | Steps |
+|--------|-------|
+| **Physical device** | Install [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent) on your Android phone. Run `npm start` and scan the QR code with the Expo Go app. |
+| **Emulator** | Install [Android Studio](https://developer.android.com/studio) and set up a virtual device, then run `npm run android`. |
+
+---
+
+### Quick Reference
+
+| Platform | Command | Requirements |
+|----------|---------|--------------|
+| **iOS (device)** | `npm start` → scan QR with Expo Go | iPhone + Expo Go app + same Wi-Fi |
+| **iOS (simulator)** | `npm run ios` | macOS + Xcode |
+| **Web** | `npm run web` | Any computer with a browser |
+| **Android (device)** | `npm start` → scan QR with Expo Go | Android + Expo Go app + same Wi-Fi |
+| **Android (emulator)** | `npm run android` | Android Studio |
+| **Interactive (choose platform)** | `npm start` then press `i`, `w`, or `a` | Platform-specific requirements above |
+
+---
 
 ### Running Tests
 
