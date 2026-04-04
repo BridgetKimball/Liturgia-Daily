@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.liturgiadaily.app"
+      "bundleIdentifier": "com.liturgiadaily.app",
+      "entitlements": {
+        "com.apple.security.application-groups": ["group.com.liturgiadaily.app"]
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +30,15 @@
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
-    }
+    },
+    "plugins": [
+      [
+        "react-native-widget-extension",
+        {
+          "targetName": "LiturgiaWidget",
+          "entryPoints": ["widgets/ios/LiturgiaWidget.swift"]
+        }
+      ]
+    ]
   }
 }
