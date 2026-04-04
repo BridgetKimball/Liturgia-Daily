@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 /**
  * WidgetPreview renders a small home-screen-style widget showing the
@@ -12,7 +12,12 @@ export default function WidgetPreview({ info }) {
   return (
     <View style={styles.wrapper}>
       <View style={[styles.widget, { backgroundColor: colorHex }]}>
-        <Text style={[styles.cross, { color: darkColorHex }]}>✝</Text>
+        <View style={[styles.logoBackground, { backgroundColor: darkColorHex }]}>
+          <Image
+            source={require('../../../Images/Liturgia_Daily_Logo.png')}
+            style={styles.logo}
+          />
+        </View>
         <Text style={styles.appName}>Liturgia</Text>
         <Text style={styles.seasonLabel} numberOfLines={2}>
           {label}
@@ -51,10 +56,18 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
     elevation: 10,
   },
-  cross: {
-    fontSize: 18,
+  logoBackground: {
+    width: 24,
+    height: 24,
+    borderRadius: 6,
     marginBottom: 4,
-    opacity: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
   },
   appName: {
     color: 'rgba(212,175,55,0.85)',

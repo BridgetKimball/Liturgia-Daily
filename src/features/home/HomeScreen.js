@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
 } from 'react-native';
 import { getLiturgicalInfo } from '../../lib/liturgicalCalendar';
 import WidgetPreview from './WidgetPreview';
@@ -74,8 +75,13 @@ export default function HomeScreen() {
           <Text style={styles.appTitle}>Liturgia Daily</Text>
           <View style={styles.divider} />
 
-          {/* Cross */}
-          <Text style={[styles.cross, { color: info.colorHex }]}>✝</Text>
+          {/* Logo with background */}
+          <View style={[styles.logoContainer, { backgroundColor: info.darkColorHex }]}>
+            <Image
+              source={require('../../../Images/Liturgia_Daily_Logo.png')}
+              style={styles.logo}
+            />
+          </View>
 
           {/* Season */}
           <Text style={styles.seasonLabel}>{info.season}</Text>
@@ -138,13 +144,24 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
 
-  // Cross icon
-  cross: {
-    fontSize: 64,
+  // Logo container
+  logoContainer: {
+    width: 88,
+    height: 88,
+    borderRadius: 16,
     marginBottom: 8,
-    textShadowColor: 'rgba(0,0,0,0.4)',
-    textShadowOffset: { width: 0, height: 4 },
-    textShadowRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  logo: {
+    width: 56,
+    height: 56,
+    resizeMode: 'contain',
   },
 
   // Season

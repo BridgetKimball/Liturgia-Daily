@@ -1,5 +1,9 @@
 # Liturgia Daily
 
+<div align="center">
+  <img src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo" width="150">
+</div>
+
 A Catholic mobile and web app that displays the **liturgical color of the day** so the faithful can easily stay connected to the rhythm of the Church's calendar.
 
 ---
@@ -53,7 +57,7 @@ The Catholic Church uses specific colors throughout the liturgical year to symbo
 Future updates may include:
 
 - 🕯️ **Saint Feast Days** — Display the saint(s) being celebrated on a given day.
-- ✝️ **Catholic Holidays & Solemnities** — Highlight major feasts such as Easter, Christmas, the Assumption, All Saints' Day, and more.
+- <img src="Images/Liturgia_Daily_Logo.png" alt="Logo" width="16" style="display: inline; margin-right: 4px;"> **Catholic Holidays & Solemnities** — Highlight major feasts such as Easter, Christmas, the Assumption, All Saints' Day, and more.
 - 🙏 **Daily Prayer** — A short prayer or intention for each day, tied to the season or feast.
 - 📖 **Bible Verse of the Day** — A scripture reading connected to the day's Mass readings or liturgical theme.
 - 📅 **Liturgical Calendar View** — A monthly or yearly view of the liturgical calendar with color coding.
@@ -156,7 +160,15 @@ Choose **one** of the options below depending on where you want to run the app.
 
 ---
 
-#### 📱 Option A — Run on a Real iPhone or Android Phone (Easiest — No Simulator Needed!)
+#### 🔗 Option A — Use the Deployed Web Version (GitHub Pages)
+
+If you just want to open the live deployed site, use this link:
+
+[https://bridgetkimball.github.io/Liturgia-Daily/](https://bridgetkimball.github.io/Liturgia-Daily/)
+
+---
+
+#### 📱 Option B — Run on a Real iPhone or Android Phone (Easiest — No Simulator Needed!)
 
 This is the quickest way to see the app on a real device.
 
@@ -177,7 +189,7 @@ The app will load on your phone within a few seconds! 🎉
 
 ---
 
-#### 🍎 Option B — Run on iOS (iPhone Simulator on a Mac)
+#### 🍎 Option C — Run on iOS (iPhone Simulator on a Mac)
 
 > **Note:** This option requires a **Mac computer** with Xcode installed, but it does **not** require an Apple Developer Program account.
 
@@ -191,7 +203,7 @@ The app will load on your phone within a few seconds! 🎉
 
 ---
 
-#### 🤖 Option C — Run on Android (Android Emulator)
+#### 🤖 Option D — Run on Android (Android Emulator)
 
 > **Note:** This option requires [Android Studio](https://developer.android.com/studio) (free).
 
@@ -203,26 +215,6 @@ The app will load on your phone within a few seconds! 🎉
    npm run android
    ```
 5. The app will install and open in the emulator automatically. ✅
-
----
-
-#### 🌐 Option D — Run in a Web Browser (Simplest Setup)
-
-No phone or simulator needed — just your computer's web browser!
-
-1. In your terminal (inside the `Liturgia-Daily` folder), run:
-   ```bash
-   npm run web
-   ```
-2. Your default web browser will open automatically and show the app. ✅
-
----
-
-#### 🔗 Option E — Use the Deployed Web Version (GitHub Pages)
-
-If you just want to open the live deployed site, use this link:
-
-[https://bridgetkimball.github.io/Liturgia-Daily/](https://bridgetkimball.github.io/Liturgia-Daily/)
 
 ---
 

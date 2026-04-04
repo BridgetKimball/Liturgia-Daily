@@ -24,7 +24,7 @@
       </header>
 
       <section class="hero fade-in-up delay-2" aria-label="Daily liturgical summary">
-        <div class="app-icon" aria-hidden="true">✝</div>
+        <img class="app-icon" data-color="White" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
         <h1>Holy Week</h1>
         <h2>Holy Saturday</h2>
         <p class="color-line">
@@ -43,12 +43,22 @@
 
       <section class="widget-area fade-in-up delay-4" aria-label="Widget preview">
         <article class="widget-card">
-          <p class="widget-icon" aria-hidden="true">✝</p>
+          <img class="widget-icon" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
           <p class="widget-brand">LITURGIA</p>
           <h3>Holy Saturday</h3>
           <p class="widget-color">White</p>
         </article>
       </section>
     </main>
+    <script>
+      // Set the data-color attribute based on the visible color text
+      const colorText = document.querySelector('.color-line')?.textContent?.trim().split('\n').pop()?.trim();
+      if (colorText) {
+        const appIcon = document.querySelector('.app-icon');
+        if (appIcon) {
+          appIcon.setAttribute('data-color', colorText);
+        }
+      }
+    </script>
   </body>
 </html>
