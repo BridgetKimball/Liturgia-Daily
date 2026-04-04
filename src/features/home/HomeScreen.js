@@ -9,8 +9,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import { getLiturgicalInfo } from '../utils/liturgicalCalendar';
-import WidgetPreview from '../components/WidgetPreview';
+import { getLiturgicalInfo } from '../../lib/liturgicalCalendar';
+import WidgetPreview from './WidgetPreview';
 
 const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
