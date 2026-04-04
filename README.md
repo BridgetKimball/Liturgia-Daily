@@ -59,9 +59,9 @@ Future updates may include:
 - 🕯️ **Saint Feast Days** — Display the saint(s) being celebrated on a given day.
 - <img src="Images/Liturgia_Daily_Logo.png" alt="Logo" width="16" style="display: inline; margin-right: 4px;"> **Catholic Holidays & Solemnities** — Highlight major feasts such as Easter, Christmas, the Assumption, All Saints' Day, and more.
 - 🙏 **Daily Prayer** — A short prayer or intention for each day, tied to the season or feast.
+- ✝️ **Daily Devotion** - A short devotion for each day, tied to the season or feast.
 - 📖 **Bible Verse of the Day** — A scripture reading connected to the day's Mass readings or liturgical theme.
 - 📅 **Liturgical Calendar View** — A monthly or yearly view of the liturgical calendar with color coding.
-- 🔔 **Daily Notifications** — Optional reminders with the liturgical color and feast of the day.
 - 🌍 **Localization** — Support for different regional calendars (e.g., diocesan feast days).
 
 ---
