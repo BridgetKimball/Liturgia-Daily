@@ -75,25 +75,52 @@ Future updates may include:
 
 ## Tech Stack
 
-> *(To be determined — this section will be updated as development progresses.)*
-
-Potential technologies under consideration:
-
-- **Mobile**: iOS (SwiftUI) and/or Android (Jetpack Compose), or a cross-platform framework (e.g., React Native, Flutter)
-- **Widget**: iOS WidgetKit / Android App Widgets
-- **Liturgical Calendar Data**: Custom data source based on the Roman Catholic liturgical calendar, referencing official Church documents
+- **Framework**: [Expo](https://expo.dev/) (SDK ~54) with [React Native](https://reactnative.dev/)
+- **Platforms**: iOS, Android, and Web (via `react-native-web`)
+- **Language**: JavaScript (React)
+- **Liturgical Calendar Logic**: Custom pure-JS implementation in `src/utils/liturgicalCalendar.js`, based on the Roman Catholic liturgical calendar
 
 ---
 
 ## Getting Started
 
-> *(Setup instructions will be added once the initial codebase is established.)*
+Liturgia Daily is an **Expo React Native** app. It runs on **iOS**, **Android**, and **Web** from a single codebase.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later recommended)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [Expo Go](https://expo.dev/go) app installed on your iOS or Android device (for mobile testing), **or** an iOS Simulator / Android Emulator
+
+### Setup
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/BridgetKimball/Liturgia-Daily.git
+   cd Liturgia-Daily
    ```
-2. Follow platform-specific setup instructions (to be added).
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the App
+
+| Platform | Command | Notes |
+|----------|---------|-------|
+| **Expo Dev Server** (choose platform interactively) | `npm start` | Opens Expo CLI; press `i` for iOS, `a` for Android, `w` for web |
+| **iOS** | `npm run ios` | Requires macOS with Xcode or an iOS Simulator |
+| **Android** | `npm run android` | Requires Android Studio / Emulator or a connected device |
+| **Web** | `npm run web` | Opens the app in your default browser |
+
+> **Tip — mobile device**: Start the dev server with `npm start`, then scan the QR code with the **Expo Go** app on your phone to run the app instantly without a simulator.
+
+### Running Tests
+
+```bash
+npm test
+```
 
 ---
 
