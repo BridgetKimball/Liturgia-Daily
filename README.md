@@ -84,39 +84,149 @@ Future updates may include:
 
 ## Getting Started
 
-Liturgia Daily is an **Expo React Native** app. It runs on **iOS**, **Android**, and **Web** from a single codebase.
+Liturgia Daily is an **Expo React Native** app. It runs on **iOS**, **Android**, and **Web** from a single codebase. Follow the steps below — no prior coding experience required!
 
-### Prerequisites
+---
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
-- [npm](https://www.npmjs.com/) (comes with Node.js)
-- [Expo Go](https://expo.dev/go) app installed on your iOS or Android device (for mobile testing), **or** an iOS Simulator / Android Emulator
+### Step 1 — Install the Required Tools
 
-### Setup
+You will need two free programs installed on your computer before you can run the app.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/BridgetKimball/Liturgia-Daily.git
-   cd Liturgia-Daily
+#### 1a. Install Node.js
+
+Node.js is the engine that powers the app on your computer.
+
+1. Go to [https://nodejs.org/](https://nodejs.org/)
+2. Click the big green **"LTS" (recommended)** download button.
+3. Open the downloaded file and follow the on-screen installer steps (just click "Next" / "Continue" through each screen).
+4. When it finishes, open a **Terminal** (Mac/Linux) or **Command Prompt / PowerShell** (Windows) and type the following command, then press **Enter**:
    ```
-
-2. Install dependencies:
-   ```bash
-   npm install
+   node --version
    ```
+   You should see a version number (e.g., `v22.0.0`). That means Node.js is installed correctly. ✅
 
-### Running the App
+> **What is a Terminal / Command Prompt?**
+> - **Mac**: Press `Command ⌘ + Space`, type `Terminal`, press Enter.
+> - **Windows**: Press the Windows key, type `cmd` or `PowerShell`, press Enter.
+> - **Linux**: Right-click the desktop and choose "Open Terminal."
 
-| Platform | Command | Notes |
-|----------|---------|-------|
-| **Expo Dev Server** (choose platform interactively) | `npm start` | Opens Expo CLI; press `i` for iOS, `a` for Android, `w` for web |
-| **iOS** | `npm run ios` | Requires macOS with Xcode or an iOS Simulator |
-| **Android** | `npm run android` | Requires Android Studio / Emulator or a connected device |
-| **Web** | `npm run web` | Opens the app in your default browser |
+#### 1b. Install Git
 
-> **Tip — mobile device**: Start the dev server with `npm start`, then scan the QR code with the **Expo Go** app on your phone to run the app instantly without a simulator.
+Git lets you download the app's source code.
+
+1. Go to [https://git-scm.com/downloads](https://git-scm.com/downloads)
+2. Click your operating system (Windows, Mac, or Linux) and follow the download and install instructions.
+3. Verify Git is installed by typing this in your terminal and pressing Enter:
+   ```
+   git --version
+   ```
+   You should see something like `git version 2.x.x`. ✅
+
+---
+
+### Step 2 — Download the App Code
+
+In your terminal, run the following two commands one at a time (press **Enter** after each one):
+
+```bash
+git clone https://github.com/BridgetKimball/Liturgia-Daily.git
+cd Liturgia-Daily
+```
+
+- The first command downloads the app code into a new folder called `Liturgia-Daily`.
+- The second command moves you inside that folder.
+
+---
+
+### Step 3 — Install App Dependencies
+
+Still in your terminal (inside the `Liturgia-Daily` folder), run:
+
+```bash
+npm install
+```
+
+This downloads all the extra packages the app needs. It may take a minute or two. You'll know it's done when you see your terminal prompt again. ✅
+
+---
+
+### Step 4 — Run the App
+
+Choose **one** of the options below depending on where you want to run the app.
+
+---
+
+#### 📱 Option A — Run on a Real iPhone or Android Phone (Easiest — No Simulator Needed!)
+
+This is the quickest way to see the app on a real device.
+
+**On your phone:**
+1. Open the App Store (iPhone) or Google Play Store (Android).
+2. Search for **"Expo Go"** and install it.
+
+**On your computer:**
+1. In your terminal, run:
+   ```bash
+   npm start
+   ```
+2. A QR code will appear in the terminal.
+3. **iPhone users**: Open the built-in **Camera** app and point it at the QR code. Tap the notification that appears at the top of the screen.
+4. **Android users**: Open the **Expo Go** app, tap **"Scan QR code"**, and scan the QR code on your screen.
+
+The app will load on your phone within a few seconds! 🎉
+
+---
+
+#### 🍎 Option B — Run on iOS (iPhone Simulator on a Mac)
+
+> **Note:** This option requires a **Mac computer** with Xcode installed.
+
+1. Install [Xcode](https://apps.apple.com/us/app/xcode/id497799835) from the Mac App Store (it's free but large — about 10 GB).
+2. Open Xcode at least once to accept the license agreement and let it finish installing extra tools.
+3. In your terminal (inside the `Liturgia-Daily` folder), run:
+   ```bash
+   npm run ios
+   ```
+4. A simulated iPhone screen will open on your Mac automatically and the app will load inside it. ✅
+
+---
+
+#### 🤖 Option C — Run on Android (Android Emulator)
+
+> **Note:** This option requires [Android Studio](https://developer.android.com/studio) (free).
+
+1. Download and install **Android Studio** from [https://developer.android.com/studio](https://developer.android.com/studio). Follow the setup wizard and accept all defaults.
+2. Open Android Studio, go to **More Actions → Virtual Device Manager**, and create a virtual device (any phone model is fine — click "Next" through the defaults).
+3. Click the **▶ Play button** next to your virtual device to start the emulator. A phone screen will appear on your desktop.
+4. In your terminal (inside the `Liturgia-Daily` folder), run:
+   ```bash
+   npm run android
+   ```
+5. The app will install and open in the emulator automatically. ✅
+
+---
+
+#### 🌐 Option D — Run in a Web Browser (Simplest Setup)
+
+No phone or simulator needed — just your computer's web browser!
+
+1. In your terminal (inside the `Liturgia-Daily` folder), run:
+   ```bash
+   npm run web
+   ```
+2. Your default web browser will open automatically and show the app. ✅
+
+---
+
+### Stopping the App
+
+To stop the development server at any time, go back to your terminal and press **Ctrl + C** (hold the Control key and press C).
+
+---
 
 ### Running Tests
+
+To run the automated tests and make sure everything is working:
 
 ```bash
 npm test
