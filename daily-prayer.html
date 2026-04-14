@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-    <title>Liturgia Daily</title>
+    <title>Liturgia Daily | Daily Prayer</title>
     <meta
       name="description"
-      content="Liturgia Daily: daily liturgical color, observance, and reflection."
+      content="Liturgia Daily: a daily prayer page that follows today's liturgical season and color."
     >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,38 +33,32 @@
       <header class="brand fade-in-up delay-1">
         <p class="brand-kicker">LITURGIA DAILY</p>
         <div class="brand-rule" aria-hidden="true"></div>
-        <p></p>
-        <p id="date-text" class="date"></p>
       </header>
 
-      <section class="hero fade-in-up delay-2" aria-label="Daily liturgical summary">
-        <img class="app-icon" data-color="White" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
-        <h1 id="season-label">Loading...</h1>
-        <h2 id="note-label">Liturgical Note</h2>
-        <p id="season-end" class="season-end">Season ends: Loading...</p>
+      <section class="hero fade-in-up delay-2" aria-label="Daily prayer heading">
+        <img class="app-icon" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
+        <h1>Daily Prayer</h1>
+        <h2 id="prayer-note">For Today</h2>
         <p class="color-line">
           <span id="color-dot" class="color-dot" aria-hidden="true"></span>
           <span id="color-text">Loading...</span>
         </p>
+        <p id="date-text" class="date"></p>
       </section>
 
-      <section class="reflection fade-in-up delay-3" aria-label="Daily reflection">
-        <p id="description-text"></p>
+      <section class="reflection fade-in-up delay-3" aria-label="Prayer of the day">
+        <p id="prayer-text"></p>
       </section>
 
-      <section class="page-actions fade-in-up delay-4" aria-label="Page actions">
-        <a class="liturgia-button" href="daily-prayer.html">Open Daily Prayer</a>
+      <section class="reflection fade-in-up delay-4" aria-label="Prayer intention">
+        <p id="intention-text"></p>
       </section>
 
-      <section class="widget-area fade-in-up delay-5" aria-label="Widget preview">
-        <article class="widget-card">
-          <img class="widget-icon" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
-          <p class="widget-brand">LITURGIA</p>
-          <h3 id="widget-season">Loading...</h3>
-          <p id="widget-color" class="widget-color">Loading...</p>
-        </article>
+      <section class="page-actions fade-in-up delay-5" aria-label="Prayer resources">
+        <a class="liturgia-button" href="https://www.heartofthenation.org/prayer-resources/todays-prayer-for-you" target="_blank" rel="noopener noreferrer">Open Today's Prayer Resource</a>
       </section>
     </main>
+
     <script>
       function initSideNav() {
         const toggle = document.getElementById('nav-toggle');
@@ -179,7 +173,6 @@
             color: 'White',
             colorHex: '#FFFFFF',
             darkColorHex: '#C8A951',
-            description: 'Celebrating the Nativity of Our Lord Jesus Christ and the revelation of God made flesh.',
           };
         }
 
@@ -190,7 +183,6 @@
             color: 'Green',
             colorHex: '#2D7D46',
             darkColorHex: '#1A4D2B',
-            description: 'A season of growth in faith, walking with Christ through His public ministry.',
           };
         }
 
@@ -202,7 +194,6 @@
               color: 'Rose',
               colorHex: '#C87697',
               darkColorHex: '#8B4C66',
-              description: 'A day of joy in the midst of Lent - "Laetare" means "Rejoice!"',
             };
           }
           if (isSameDay(d, palmSunday)) {
@@ -212,7 +203,6 @@
               color: 'Red',
               colorHex: '#C0392B',
               darkColorHex: '#7D1A14',
-              description: 'Jesus enters Jerusalem in triumph as the crowd waves palm branches.',
             };
           }
           if (isSameDay(d, holyThursday)) {
@@ -222,7 +212,6 @@
               color: 'White',
               colorHex: '#FFFFFF',
               darkColorHex: '#C8A951',
-              description: "The Mass of the Lord's Supper - the institution of the Eucharist and holy priesthood.",
             };
           }
           if (isSameDay(d, goodFriday)) {
@@ -232,7 +221,6 @@
               color: 'Red',
               colorHex: '#C0392B',
               darkColorHex: '#7D1A14',
-              description: 'The Passion of Our Lord - we commemorate the crucifixion and death of Jesus Christ.',
             };
           }
           if (isSameDay(d, holySaturday)) {
@@ -242,7 +230,6 @@
               color: 'White',
               colorHex: '#FFFFFF',
               darkColorHex: '#C8A951',
-              description: 'The Church awaits in silent prayer as Christ lies in the tomb. The Easter Vigil begins tonight.',
             };
           }
           return {
@@ -251,7 +238,6 @@
             color: 'Purple',
             colorHex: '#6B3FA0',
             darkColorHex: '#3E1C6E',
-            description: 'A season of penance, prayer, and fasting in preparation for Easter.',
           };
         }
 
@@ -263,7 +249,6 @@
               color: 'Red',
               colorHex: '#C0392B',
               darkColorHex: '#7D1A14',
-              description: 'The descent of the Holy Spirit upon the Apostles - the birthday of the Church.',
             };
           }
           return {
@@ -272,7 +257,6 @@
             color: 'White',
             colorHex: '#FFFFFF',
             darkColorHex: '#C8A951',
-            description: 'Alleluia! We celebrate the Resurrection of Our Lord Jesus Christ for fifty joyful days.',
           };
         }
 
@@ -283,7 +267,6 @@
             color: 'Green',
             colorHex: '#2D7D46',
             darkColorHex: '#1A4D2B',
-            description: 'A season of growth in faith, walking with Christ through His public ministry.',
           };
         }
 
@@ -295,7 +278,6 @@
               color: 'Rose',
               colorHex: '#C87697',
               darkColorHex: '#8B4C66',
-              description: 'A day of joy in Advent - "Gaudete" means "Rejoice!" - as Christmas draws near.',
             };
           }
           return {
@@ -304,7 +286,6 @@
             color: 'Purple',
             colorHex: '#6B3FA0',
             darkColorHex: '#3E1C6E',
-            description: 'A time of joyful preparation and expectant waiting for the coming of Our Lord.',
           };
         }
 
@@ -314,7 +295,6 @@
           color: 'White',
           colorHex: '#FFFFFF',
           darkColorHex: '#C8A951',
-          description: 'Celebrating the Nativity of Our Lord Jesus Christ and the revelation of God made flesh.',
         };
       }
 
@@ -322,62 +302,67 @@
         return `${DAY_NAMES[d.getDay()]}, ${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
       }
 
-      function formatMonthDayOrdinal(d) {
-        const day = d.getDate();
-        const mod10 = day % 10;
-        const mod100 = day % 100;
-        let suffix = 'th';
-        if (mod10 === 1 && mod100 !== 11) suffix = 'st';
-        if (mod10 === 2 && mod100 !== 12) suffix = 'nd';
-        if (mod10 === 3 && mod100 !== 13) suffix = 'rd';
-        return `${MONTH_NAMES[d.getMonth()]} ${day}${suffix}, ${d.getFullYear()}`;
+      function getDailyPrayer(season) {
+        const prayers = {
+          Advent: 'Come, Lord Jesus. Prepare my heart to welcome You with hope, patience, and joyful trust.',
+          Christmastide: 'Lord Jesus, Light of the world, let Your peace dwell in my home and guide my steps today.',
+          OrdinaryTime: 'Lord, teach me to be faithful in ordinary moments, so every task becomes an act of love.',
+          Lent: 'Merciful Father, grant me a repentant heart, deeper prayer, and strength to follow You in sacrifice.',
+          HolyWeek: 'Jesus, in Your Passion teach me to remain near You in humility, gratitude, and steadfast love.',
+          Eastertide: 'Risen Lord, fill me with Easter joy, renew my hope, and send me to share Your life with others.',
+          Pentecost: 'Holy Spirit, kindle in me the fire of Your love so I may witness Christ with courage and charity.',
+        };
+
+        const seasonKey = season.replace(/\s+/g, '');
+        return prayers[seasonKey] || prayers.OrdinaryTime;
       }
 
-      function getSeasonEndInfo(date, season) {
-        const d = toDateOnly(date);
-        const year = d.getFullYear();
+      function getIntention(color) {
+        const intentions = {
+          White: 'Intention: Pray for peace in hearts, homes, and communities.',
+          Green: 'Intention: Pray for growth in faith and perseverance in daily holiness.',
+          Purple: 'Intention: Pray for conversion, healing, and reconciliation.',
+          Red: 'Intention: Pray for courage, sacrifice, and faithfulness under trial.',
+          Rose: 'Intention: Pray for joy rooted in God\'s mercy and promises.',
+        };
 
-        const easter = getEasterDate(year);
-        const ashWednesday = addDays(easter, -46);
-        const palmSunday = addDays(easter, -7);
-        const holySaturday = addDays(easter, -1);
-        const pentecost = addDays(easter, 49);
-        const adventStart = getAdventStart(year);
-        const christmasEve = new Date(year, 11, 24);
+        return intentions[color] || 'Intention: Pray for the needs of the Church and the whole world.';
+      }
 
-        if (season === 'Eastertide') {
-          return { date: pentecost, label: 'Pentecost Sunday' };
+      function extractPrayerFromMarkdown(markdown) {
+        const headingMatch = markdown.match(/##\s+([^\n]*Prayer[^\n]*)\n/);
+        const prayerBlockMatch = markdown.match(
+          /##\s+[^\n]*Prayer[^\n]*\n\n([\s\S]*?)\n\n\[Read More Prayers for You\]/
+        );
+
+        if (!headingMatch || !prayerBlockMatch) {
+          return null;
         }
 
-        if (season === 'Pentecost') {
-          return { date: pentecost, label: 'Pentecost Sunday' };
+        const heading = headingMatch[1].trim();
+        const prayerText = prayerBlockMatch[1].replace(/\s+/g, ' ').trim();
+
+        if (!prayerText) {
+          return null;
         }
 
-        if (season === 'Holy Week') {
-          return { date: holySaturday, label: 'Holy Saturday' };
+        return { heading, prayerText };
+      }
+
+      async function loadSourcePrayer() {
+        const sourceUrl = 'https://r.jina.ai/http://www.heartofthenation.org/prayer-resources/todays-prayer-for-you';
+        const response = await fetch(sourceUrl);
+        if (!response.ok) {
+          throw new Error(`Prayer source request failed: ${response.status}`);
         }
 
-        if (season === 'Lent') {
-          return { date: addDays(palmSunday, -1), label: 'Before Holy Week' };
+        const markdown = await response.text();
+        const parsed = extractPrayerFromMarkdown(markdown);
+        if (!parsed) {
+          throw new Error('Unable to parse prayer text from source content.');
         }
 
-        if (season === 'Advent') {
-          return { date: christmasEve, label: 'Christmas Eve' };
-        }
-
-        if (season === 'Christmastide') {
-          const endDate = d.getMonth() === 11 ? getBaptismOfLord(year + 1) : getBaptismOfLord(year);
-          return { date: endDate, label: 'Baptism of the Lord' };
-        }
-
-        if (season === 'Ordinary Time') {
-          if (d < ashWednesday) {
-            return { date: addDays(ashWednesday, -1), label: 'Before Lent' };
-          }
-          return { date: addDays(adventStart, -1), label: 'Before Advent' };
-        }
-
-        return null;
+        return parsed;
       }
 
       const today = new Date();
@@ -387,27 +372,15 @@
         document.body.classList.add('easter-white-theme');
       }
 
-      document.getElementById('season-label').textContent = info.season;
-      document.getElementById('widget-season').textContent = info.season;
       document.getElementById('color-text').textContent = info.color;
-      document.getElementById('widget-color').textContent = info.color;
       document.getElementById('date-text').textContent = formatDate(today);
-      document.getElementById('description-text').textContent = info.description;
+      document.getElementById('intention-text').textContent = getIntention(info.color);
 
-      const seasonEndEl = document.getElementById('season-end');
-      const seasonEndInfo = getSeasonEndInfo(today, info.season);
-      if (seasonEndInfo) {
-        seasonEndEl.textContent = `Season ends: ${formatMonthDayOrdinal(seasonEndInfo.date)}`;
-      } else {
-        seasonEndEl.style.display = 'none';
-      }
+      const prayerNote = document.getElementById('prayer-note');
+      prayerNote.textContent = info.note ? `${info.season} - ${info.note}` : info.season;
 
-      const noteEl = document.getElementById('note-label');
-      if (info.note) {
-        noteEl.textContent = info.note;
-      } else {
-        noteEl.style.display = 'none';
-      }
+      const prayerTextEl = document.getElementById('prayer-text');
+      prayerTextEl.textContent = 'Loading today\'s prayer...';
 
       const appIcon = document.querySelector('.app-icon');
       if (appIcon) {
@@ -422,6 +395,15 @@
       document.documentElement.style.setProperty('--current-color', info.colorHex);
       document.documentElement.style.setProperty('--current-dark-color', info.darkColorHex);
       document.documentElement.style.setProperty('--current-dot-border', info.darkColorHex);
+
+      loadSourcePrayer()
+        .then(({ heading, prayerText }) => {
+          prayerNote.textContent = heading;
+          prayerTextEl.textContent = prayerText;
+        })
+        .catch(() => {
+          prayerTextEl.textContent = getDailyPrayer(info.season);
+        });
     </script>
   </body>
 </html>

@@ -154,7 +154,7 @@ function getLiturgicalInfo(date) {
       season: 'Christmastide',
       note: isSameDay(d, new Date(year, 0, 6)) ? 'Feast of Epiphany' : '',
       color: 'White',
-      colorHex: '#F5EFD5',
+      colorHex: '#FFFFFF',
       darkColorHex: '#C8A951',
       description:
         'Celebrating the Nativity of Our Lord Jesus Christ and the revelation of God made flesh.',
@@ -203,7 +203,7 @@ function getLiturgicalInfo(date) {
         season: 'Holy Week',
         note: 'Holy Thursday',
         color: 'White',
-        colorHex: '#F5EFD5',
+        colorHex: '#FFFFFF',
         darkColorHex: '#C8A951',
         description:
           'The Mass of the Lord\'s Supper — the institution of the Eucharist and holy priesthood.',
@@ -225,7 +225,7 @@ function getLiturgicalInfo(date) {
         season: 'Holy Week',
         note: 'Holy Saturday',
         color: 'White',
-        colorHex: '#F5EFD5',
+        colorHex: '#FFFFFF',
         darkColorHex: '#C8A951',
         description:
           'The Church awaits in silent prayer as Christ lies in the tomb. The Easter Vigil begins tonight.',
@@ -259,7 +259,7 @@ function getLiturgicalInfo(date) {
       season: 'Eastertide',
       note: isSameDay(d, easter) ? 'Easter Sunday' : '',
       color: 'White',
-      colorHex: '#F5EFD5',
+      colorHex: '#FFFFFF',
       darkColorHex: '#C8A951',
       description:
         'Alleluia! We celebrate the Resurrection of Our Lord Jesus Christ for fifty joyful days.',
@@ -308,7 +308,7 @@ function getLiturgicalInfo(date) {
     season: 'Christmastide',
     note: isSameDay(d, christmas) ? 'Christmas Day' : '',
     color: 'White',
-    colorHex: '#F5EFD5',
+    colorHex: '#FFFFFF',
     darkColorHex: '#C8A951',
     description:
       'Celebrating the Nativity of Our Lord Jesus Christ and the revelation of God made flesh.',
