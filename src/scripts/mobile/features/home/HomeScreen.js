@@ -1,161 +1,119 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useMemo } from 'react';
-import {
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import ScreenShell from '../../components/ScreenShell';
 import { getLiturgicalInfo } from '../../lib/liturgicalCalendar';
+import {
+  formatDateWithOrdinal,
+  formatMonthDayOrdinal,
+  getSeasonEndInfo,
+  loadSaintFeastDay,
+} from '../../lib/mobileContent';
 import WidgetPreview from './WidgetPreview';
 
-const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
-];
-
-const DAY_NAMES = [
-  'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
-];
-
-/**
- * Returns a human-readable date string like "Sunday, April 4, 2026".
- */
-function formatDate(d) {
-  return `${DAY_NAMES[d.getDay()]}, ${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-}
-
-/**
- * Returns the background gradient colours for a given liturgical colour.
- * We always provide a top-to-bottom gradient with a darker bottom shade.
- */
-function gradientColors(info) {
-  switch (info.color) {
-    case 'Purple':
-      return ['#3E1C6E', '#1A0A3A'];
-    case 'Rose':
-      return ['#8B4C66', '#4A1F36'];
-    case 'White':
-      return ['#7A6030', '#2E1E08'];
-    case 'Green':
-      return ['#1A4D2B', '#091A0F'];
-    case 'Red':
-      return ['#7D1A14', '#2E0A08'];
-    default:
-      return ['#0A1628', '#03070F'];
-  }
-}
-
-export default function HomeScreen() {
+export default function HomeScreen({ onNavigate = () => {} }) {
   const today = useMemo(() => new Date(), []);
   const info = useMemo(() => getLiturgicalInfo(today), [today]);
+  const [saintFeast, setSaintFeast] = useState('');
 
-  const [gradTop, gradBottom] = gradientColors(info);
+  useEffect(() => {
+    AsyncStorage.multiSet([
+      ['season', info.season],
+      ['color', info.color],
+      ['colorHex', info.colorHex],
+    ]);
+  }, [info]);
 
-  React.useEffect(() => {
-  AsyncStorage.multiSet([
-    ['season',   info.season],
-    ['color',    info.color],
-    ['colorHex', info.colorHex],
-  ]);
-}, [info]);
+  useEffect(() => {
+    let active = true;
+
+    loadSaintFeastDay(today)
+      .then((saintName) => {
+        if (active) {
+          setSaintFeast(saintName || '');
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setSaintFeast('');
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [today]);
+
+  const seasonEndInfo = getSeasonEndInfo(today, info.season);
+  const seasonEndLabel = seasonEndInfo ? 'Season ends: ' + formatMonthDayOrdinal(seasonEndInfo.date) : '';
 
   return (
-    <LinearGradient colors={[gradTop, gradBottom]} style={styles.gradient}>
-      <SafeAreaView style={styles.safe}>
-        <ScrollView
-          contentContainerStyle={styles.scroll}
-          showsVerticalScrollIndicator={false}
+    <ScreenShell
+      info={info}
+      dateLabel={formatDateWithOrdinal(today)}
+      activePage="home"
+      onNavigate={onNavigate}
+    >
+      <View style={styles.heroPrimary}>
+        <View style={[styles.logoContainer, { backgroundColor: info.darkColorHex }]}> 
+          <Image
+            source={require('../../../../../Images/Liturgia_Daily_Logo.png')}
+            style={styles.logo}
+          />
+        </View>
+        <Text style={styles.seasonLabel}>{info.season}</Text>
+        {info.note ? <Text style={styles.noteLabel}>{info.note}</Text> : null}
+        {seasonEndLabel ? <Text style={styles.seasonEnd}>{seasonEndLabel}</Text> : null}
+        {saintFeast ? <Text style={styles.saintFeast}>{saintFeast}</Text> : null}
+        <View style={styles.colorLine}>
+          <View style={[styles.colorDot, { backgroundColor: info.colorHex, borderColor: info.darkColorHex }]} />
+          <Text style={styles.colorText}>{info.color}</Text>
+        </View>
+      </View>
+
+      <View style={styles.descriptionCard}>
+        <Text style={styles.descriptionText}>{info.description}</Text>
+      </View>
+
+      <View style={styles.buttonRow}>
+        <Pressable
+          onPress={() => onNavigate('prayer')}
+          accessibilityRole="button"
+          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
         >
-          {/* App name */}
-          <Text style={styles.appTitle}>Liturgia Daily</Text>
-          <View style={styles.divider} />
+          <Text style={styles.buttonText}>Open Daily Prayer</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => onNavigate('reading')}
+          accessibilityRole="button"
+          style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
+        >
+          <Text style={styles.buttonText}>Open Daily Reading</Text>
+        </Pressable>
+      </View>
 
-          {/* Logo with background */}
-          <View style={[styles.logoContainer, { backgroundColor: info.darkColorHex }]}>
-            <Image
-              source={require('../../../Images/Liturgia_Daily_Logo.png')}
-              style={styles.logo}
-            />
-          </View>
-
-          {/* Season */}
-          <Text style={styles.seasonLabel}>{info.season}</Text>
-          {info.note ? (
-            <Text style={[styles.noteLabel, { color: info.colorHex }]}>
-              {info.note}
-            </Text>
-          ) : null}
-
-          {/* Color swatch + name */}
-          <View style={styles.colorRow}>
-            <View style={[styles.colorSwatch, { backgroundColor: info.colorHex }]} />
-            <Text style={styles.colorText}>{info.color}</Text>
-          </View>
-
-          {/* Date */}
-          <Text style={styles.dateText}>{formatDate(today)}</Text>
-
-          {/* Description */}
-          <View style={styles.descriptionCard}>
-            <Text style={styles.descriptionText}>{info.description}</Text>
-          </View>
-
-          {/* Widget preview */}
-          <WidgetPreview info={info} />
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+      <WidgetPreview info={info} />
+    </ScreenShell>
   );
 }
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-  },
-  safe: {
-    flex: 1,
-  },
-  scroll: {
-    flexGrow: 1,
+  heroPrimary: {
+    width: '100%',
     alignItems: 'center',
-    paddingHorizontal: 24,
-    paddingTop: Platform.OS === 'android' ? 48 : 16,
-    paddingBottom: 40,
+    marginTop: 4,
   },
-
-  // App title
-  appTitle: {
-    color: 'rgba(255,255,255,0.9)',
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 4,
-    textTransform: 'uppercase',
-    marginTop: 8,
-  },
-  divider: {
-    width: 40,
-    height: 1,
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    marginVertical: 16,
-  },
-
-  // Logo container
   logoContainer: {
     width: 88,
     height: 88,
-    borderRadius: 16,
-    marginBottom: 8,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.26,
+    shadowRadius: 10,
     elevation: 8,
   },
   logo: {
@@ -163,74 +121,110 @@ const styles = StyleSheet.create({
     height: 56,
     resizeMode: 'contain',
   },
-
-  // Season
   seasonLabel: {
-    color: '#fff',
-    fontSize: 36,
+    color: '#FFFFFF',
+    fontSize: 40,
     fontWeight: '800',
-    letterSpacing: 1,
     textAlign: 'center',
-    marginBottom: 6,
     textShadowColor: 'rgba(0,0,0,0.35)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 8,
   },
   noteLabel: {
+    marginTop: 6,
+    color: 'rgba(255,255,255,0.84)',
+    fontSize: 15,
+    fontWeight: '700',
+    letterSpacing: 1.2,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  seasonEnd: {
+    marginTop: 6,
+    color: 'rgba(255,255,255,0.72)',
     fontSize: 15,
     fontWeight: '600',
-    letterSpacing: 1.5,
-    textTransform: 'uppercase',
-    marginBottom: 4,
-    opacity: 0.95,
+    textAlign: 'center',
   },
-
-  // Color row
-  colorRow: {
+  saintFeast: {
+    marginTop: 8,
+    color: '#F7EAD0',
+    fontSize: 15,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  colorLine: {
+    marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 12,
-    marginBottom: 8,
+    justifyContent: 'center',
   },
-  colorSwatch: {
+  colorDot: {
     width: 18,
     height: 18,
     borderRadius: 9,
-    marginRight: 8,
     borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.4)',
+    marginRight: 10,
   },
   colorText: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: 14,
-    fontWeight: '600',
-    letterSpacing: 1,
+    color: '#FFFFFF',
+    fontSize: 18,
+    fontWeight: '700',
+    letterSpacing: 0.4,
   },
-
-  // Date
-  dateText: {
-    color: 'rgba(255,255,255,0.55)',
-    fontSize: 13,
-    letterSpacing: 0.3,
-    marginBottom: 28,
-  },
-
-  // Description card
   descriptionCard: {
-    backgroundColor: 'rgba(0,0,0,0.25)',
-    borderRadius: 16,
-    paddingVertical: 20,
-    paddingHorizontal: 24,
     width: '100%',
+    borderRadius: 20,
+    paddingVertical: 22,
+    paddingHorizontal: 24,
+    marginTop: 26,
+    backgroundColor: 'rgba(255, 255, 255, 0.94)',
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.1)',
+    borderColor: 'rgba(199, 168, 92, 0.5)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.18,
+    shadowRadius: 16,
+    elevation: 5,
   },
   descriptionText: {
-    color: 'rgba(255,255,255,0.85)',
-    fontSize: 15,
-    lineHeight: 24,
+    color: '#6F5A20',
     textAlign: 'center',
+    fontSize: 20,
+    lineHeight: 30,
+    fontWeight: '700',
     fontStyle: 'italic',
-    letterSpacing: 0.2,
+  },
+  buttonRow: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 12,
+    marginTop: 26,
+  },
+  button: {
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 999,
+    backgroundColor: 'rgba(245, 239, 213, 0.95)',
+    borderWidth: 1,
+    borderColor: 'rgba(245, 239, 213, 0.28)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.24,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+  buttonPressed: {
+    transform: [{ translateY: 1 }],
+  },
+  buttonText: {
+    color: '#7A5E1F',
+    fontSize: 13,
+    fontWeight: '700',
+    letterSpacing: 0.6,
+    textAlign: 'center',
   },
 });

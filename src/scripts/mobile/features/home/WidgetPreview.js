@@ -6,15 +6,15 @@ import { StyleSheet, Text, View, Image } from 'react-native';
  * liturgical color and season name.
  */
 export default function WidgetPreview({ info }) {
-  const { season, note, color, colorHex, darkColorHex } = info;
+  const { season, note, color, darkColorHex } = info;
   const label = note || season;
 
   return (
     <View style={styles.wrapper}>
-      <View style={[styles.widget, { backgroundColor: colorHex }]}>
+      <View style={styles.widget}>
         <View style={[styles.logoBackground, { backgroundColor: darkColorHex }]}>
           <Image
-            source={require('../../../Images/Liturgia_Daily_Logo.png')}
+            source={require('../../../../../Images/Liturgia_Daily_Logo.png')}
             style={styles.logo}
           />
         </View>
@@ -32,27 +32,20 @@ export default function WidgetPreview({ info }) {
 const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
-    marginTop: 32,
+    marginTop: 30,
     marginBottom: 16,
   },
-  heading: {
-    color: 'rgba(212,175,55,0.75)',
-    fontSize: 11,
-    fontWeight: '600',
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-    marginBottom: 12,
-  },
   widget: {
-    width: 140,
-    height: 140,
-    borderRadius: 24,
+    width: 160,
+    minHeight: 178,
+    borderRadius: 28,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
+    backgroundColor: '#E8E1C9',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.25,
     shadowRadius: 16,
     elevation: 10,
   },
@@ -70,31 +63,31 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   appName: {
-    color: 'rgba(212,175,55,0.85)',
-    fontSize: 9,
+    color: '#C5A036',
+    fontSize: 10,
     fontWeight: '700',
-    letterSpacing: 1.5,
+    letterSpacing: 2.5,
     textTransform: 'uppercase',
     marginBottom: 4,
   },
   seasonLabel: {
-    color: '#D4AF37',
-    fontSize: 13,
+    color: '#C5A036',
+    fontSize: 18,
     fontWeight: '700',
     textAlign: 'center',
-    letterSpacing: 0.3,
-    marginBottom: 6,
+    letterSpacing: 0.2,
+    marginBottom: 8,
   },
   colorDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    marginBottom: 3,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginBottom: 4,
   },
   colorName: {
-    color: 'rgba(212,175,55,0.9)',
-    fontSize: 10,
-    fontWeight: '600',
-    letterSpacing: 0.5,
+    color: '#C5A036',
+    fontSize: 14,
+    fontWeight: '700',
+    letterSpacing: 0.4,
   },
 });
