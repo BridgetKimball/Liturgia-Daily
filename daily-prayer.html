@@ -26,6 +26,7 @@
       <ul class="side-nav-list">
         <li><a class="side-nav-link" href="index.html">Home</a></li>
         <li><a class="side-nav-link" href="daily-prayer.html">Daily Prayer</a></li>
+        <li><a class="side-nav-link" href="daily-reading.html">Daily Reading</a></li>
       </ul>
     </nav>
 
@@ -39,10 +40,6 @@
         <img class="app-icon" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
         <h1>Daily Prayer</h1>
         <h2 id="prayer-note">For Today</h2>
-        <p class="color-line">
-          <span id="color-dot" class="color-dot" aria-hidden="true"></span>
-          <span id="color-text">Loading...</span>
-        </p>
         <p id="date-text" class="date"></p>
       </section>
 
@@ -372,7 +369,6 @@
         document.body.classList.add('easter-white-theme');
       }
 
-      document.getElementById('color-text').textContent = info.color;
       document.getElementById('date-text').textContent = formatDate(today);
       document.getElementById('intention-text').textContent = getIntention(info.color);
 
@@ -385,11 +381,6 @@
       const appIcon = document.querySelector('.app-icon');
       if (appIcon) {
         appIcon.style.backgroundColor = info.darkColorHex;
-      }
-
-      const colorDot = document.getElementById('color-dot');
-      if (colorDot) {
-        colorDot.style.backgroundColor = info.colorHex;
       }
 
       document.documentElement.style.setProperty('--current-color', info.colorHex);

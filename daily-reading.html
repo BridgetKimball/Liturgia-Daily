@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-    <title>Liturgia Daily</title>
+    <title>Liturgia Daily | Daily Reading</title>
     <meta
       name="description"
-      content="Liturgia Daily: daily liturgical color, observance, and reflection."
+      content="Liturgia Daily: daily readings and Gospel themed to today's liturgical season and color."
     >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,38 +34,35 @@
       <header class="brand fade-in-up delay-1">
         <p class="brand-kicker">LITURGIA DAILY</p>
         <div class="brand-rule" aria-hidden="true"></div>
-        <p id="date-text" class="date"></p>
       </header>
 
-      <section class="hero fade-in-up delay-2" aria-label="Daily liturgical summary">
-        <img class="app-icon" data-color="White" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
-        <h1 id="season-label">Loading...</h1>
-        <h2 id="note-label">Liturgical Note</h2>
-        <p id="season-end" class="season-end">Season ends: Loading...</p>
-        <p id="saint-feast" class="saint-feast" hidden></p>
-        <p class="color-line">
-          <span id="color-dot" class="color-dot" aria-hidden="true"></span>
-          <span id="color-text">Loading...</span>
-        </p>
+      <section class="hero fade-in-up delay-2" aria-label="Daily readings heading">
+        <img class="app-icon" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
+        <h1>Daily Reading</h1>
+        <h2 id="reading-note">Word of the Day</h2>
+        <p id="date-text" class="date"></p>
       </section>
 
-      <section class="reflection fade-in-up delay-3" aria-label="Daily reflection">
-        <p id="description-text"></p>
+      <section class="reflection fade-in-up delay-3" aria-label="Reading of the day">
+        <h3 class="reading-heading">Reading of the Day</h3>
+        <p id="reading-text" class="reading-body">Loading reading...</p>
       </section>
 
-      <section class="page-actions fade-in-up delay-4" aria-label="Page actions">
-        <a class="liturgia-button" href="daily-prayer.html">Open Daily Prayer</a>
+      <section class="reflection fade-in-up delay-4" aria-label="Gospel of the day">
+        <h3 class="reading-heading">Gospel of the Day</h3>
+        <p id="gospel-text" class="reading-body">Loading Gospel...</p>
       </section>
 
-      <section class="widget-area fade-in-up delay-5" aria-label="Widget preview">
-        <article class="widget-card">
-          <img class="widget-icon" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
-          <p class="widget-brand">LITURGIA</p>
-          <h3 id="widget-season">Loading...</h3>
-          <p id="widget-color" class="widget-color">Loading...</p>
-        </article>
+      <section class="reflection fade-in-up delay-5" aria-label="Words of the Popes">
+        <h3 class="reading-heading">Words of the Popes</h3>
+        <p id="pope-text" class="reading-body">Loading reflection...</p>
+      </section>
+
+      <section class="page-actions fade-in-up delay-5" aria-label="Reading resources">
+        <a class="liturgia-button" href="https://www.vaticannews.va/en/word-of-the-day.html" target="_blank" rel="noopener noreferrer">Open Vatican Word of the Day</a>
       </section>
     </main>
+
     <script>
       function initSideNav() {
         const toggle = document.getElementById('nav-toggle');
@@ -154,45 +151,6 @@
         return new Date(year, 0, 6 + (7 - epiphanyDay));
       }
 
-      function getMonthName(date) {
-        return MONTH_NAMES[date.getMonth()];
-      }
-
-      function parseFeastDayText(markdown, targetDate) {
-        const monthName = getMonthName(targetDate);
-        const day = targetDate.getDate();
-        const monthRegex = new RegExp(`\\#\\s+${monthName}\\s+${targetDate.getFullYear()}([\\s\\S]*?)(?=\\n#\\s+[A-Z][a-z]+\\s+${targetDate.getFullYear()}|\\n#### Month-by-Month Tags|$)`);
-        const monthMatch = markdown.match(monthRegex);
-        const searchBlock = monthMatch ? monthMatch[1] : markdown;
-
-        const escapedDay = String(day).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const bracketAfterDay = new RegExp(`\\[([^\\]]+)\\]\\s*${escapedDay}(?!\\d)`, 'm');
-        const dayAfterBracket = new RegExp(`\\b${escapedDay}\\b\\s*\\[([^\\]]+)\\]`, 'm');
-
-        const match = searchBlock.match(bracketAfterDay) || searchBlock.match(dayAfterBracket);
-        if (!match) {
-          return null;
-        }
-
-        const raw = match[1].replace(/\s+/g, ' ').trim();
-        if (!raw || !/[A-Za-z]/.test(raw)) {
-          return null;
-        }
-
-        return raw;
-      }
-
-      async function loadSaintFeastDay(date) {
-        const sourceUrl = 'https://r.jina.ai/http://www.catholicapostolatecenterfeastdays.org/feast-day-calendar';
-        const response = await fetch(sourceUrl);
-        if (!response.ok) {
-          throw new Error(`Feast day source request failed: ${response.status}`);
-        }
-
-        const markdown = await response.text();
-        return parseFeastDayText(markdown, date);
-      }
-
       function getLiturgicalInfo(date) {
         const d = toDateOnly(date || new Date());
         const year = d.getFullYear();
@@ -219,7 +177,6 @@
             color: 'White',
             colorHex: '#FFFFFF',
             darkColorHex: '#C8A951',
-            description: 'Celebrating the Nativity of Our Lord Jesus Christ and the revelation of God made flesh.',
           };
         }
 
@@ -230,7 +187,6 @@
             color: 'Green',
             colorHex: '#2D7D46',
             darkColorHex: '#1A4D2B',
-            description: 'A season of growth in faith, walking with Christ through His public ministry.',
           };
         }
 
@@ -242,7 +198,6 @@
               color: 'Rose',
               colorHex: '#C87697',
               darkColorHex: '#8B4C66',
-              description: 'A day of joy in the midst of Lent - "Laetare" means "Rejoice!"',
             };
           }
           if (isSameDay(d, palmSunday)) {
@@ -252,7 +207,6 @@
               color: 'Red',
               colorHex: '#C0392B',
               darkColorHex: '#7D1A14',
-              description: 'Jesus enters Jerusalem in triumph as the crowd waves palm branches.',
             };
           }
           if (isSameDay(d, holyThursday)) {
@@ -262,7 +216,6 @@
               color: 'White',
               colorHex: '#FFFFFF',
               darkColorHex: '#C8A951',
-              description: "The Mass of the Lord's Supper - the institution of the Eucharist and holy priesthood.",
             };
           }
           if (isSameDay(d, goodFriday)) {
@@ -272,7 +225,6 @@
               color: 'Red',
               colorHex: '#C0392B',
               darkColorHex: '#7D1A14',
-              description: 'The Passion of Our Lord - we commemorate the crucifixion and death of Jesus Christ.',
             };
           }
           if (isSameDay(d, holySaturday)) {
@@ -282,7 +234,6 @@
               color: 'White',
               colorHex: '#FFFFFF',
               darkColorHex: '#C8A951',
-              description: 'The Church awaits in silent prayer as Christ lies in the tomb. The Easter Vigil begins tonight.',
             };
           }
           return {
@@ -291,7 +242,6 @@
             color: 'Purple',
             colorHex: '#6B3FA0',
             darkColorHex: '#3E1C6E',
-            description: 'A season of penance, prayer, and fasting in preparation for Easter.',
           };
         }
 
@@ -303,7 +253,6 @@
               color: 'Red',
               colorHex: '#C0392B',
               darkColorHex: '#7D1A14',
-              description: 'The descent of the Holy Spirit upon the Apostles - the birthday of the Church.',
             };
           }
           return {
@@ -312,7 +261,6 @@
             color: 'White',
             colorHex: '#FFFFFF',
             darkColorHex: '#C8A951',
-            description: 'Alleluia! We celebrate the Resurrection of Our Lord Jesus Christ for fifty joyful days.',
           };
         }
 
@@ -323,7 +271,6 @@
             color: 'Green',
             colorHex: '#2D7D46',
             darkColorHex: '#1A4D2B',
-            description: 'A season of growth in faith, walking with Christ through His public ministry.',
           };
         }
 
@@ -335,7 +282,6 @@
               color: 'Rose',
               colorHex: '#C87697',
               darkColorHex: '#8B4C66',
-              description: 'A day of joy in Advent - "Gaudete" means "Rejoice!" - as Christmas draws near.',
             };
           }
           return {
@@ -344,7 +290,6 @@
             color: 'Purple',
             colorHex: '#6B3FA0',
             darkColorHex: '#3E1C6E',
-            description: 'A time of joyful preparation and expectant waiting for the coming of Our Lord.',
           };
         }
 
@@ -354,128 +299,144 @@
           color: 'White',
           colorHex: '#FFFFFF',
           darkColorHex: '#C8A951',
-          description: 'Celebrating the Nativity of Our Lord Jesus Christ and the revelation of God made flesh.',
         };
       }
 
-      function formatDate(d) {
-        return `${DAY_NAMES[d.getDay()]}, ${MONTH_NAMES[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+      function getOrdinal(n) {
+        const s = ['th', 'st', 'nd', 'rd'];
+        const v = n % 100;
+        return n + (s[(v - 20) % 10] || s[v] || s[0]);
       }
 
-      function formatMonthDayOrdinal(d) {
-        const day = d.getDate();
-        const mod10 = day % 10;
-        const mod100 = day % 100;
-        let suffix = 'th';
-        if (mod10 === 1 && mod100 !== 11) suffix = 'st';
-        if (mod10 === 2 && mod100 !== 12) suffix = 'nd';
-        if (mod10 === 3 && mod100 !== 13) suffix = 'rd';
-        return `${MONTH_NAMES[d.getMonth()]} ${day}${suffix}, ${d.getFullYear()}`;
+      function formatDate(date) {
+        const d = date.getDate();
+        const month = MONTH_NAMES[date.getMonth()];
+        const year = date.getFullYear();
+        const weekday = DAY_NAMES[date.getDay()];
+        return weekday + ', ' + month + ' ' + getOrdinal(d) + ', ' + year;
       }
 
-      function getSeasonEndInfo(date, season) {
-        const d = toDateOnly(date);
-        const year = d.getFullYear();
+      function applyLiturgicalTheme() {
+        const today = new Date();
+        const info = getLiturgicalInfo(today);
+        const root = document.documentElement;
+        const dateText = document.getElementById('date-text');
+        const readingNote = document.getElementById('reading-note');
 
-        const easter = getEasterDate(year);
-        const ashWednesday = addDays(easter, -46);
-        const palmSunday = addDays(easter, -7);
-        const holySaturday = addDays(easter, -1);
-        const pentecost = addDays(easter, 49);
-        const adventStart = getAdventStart(year);
-        const christmasEve = new Date(year, 11, 24);
+        root.style.setProperty('--liturgical-color', info.colorHex);
+        root.style.setProperty('--liturgical-color-dark', info.darkColorHex);
+        dateText.textContent = formatDate(today);
 
-        if (season === 'Eastertide') {
-          return { date: pentecost, label: 'Pentecost Sunday' };
+        const noteSuffix = info.note ? ' - ' + info.note : '';
+        readingNote.textContent = info.season + noteSuffix;
+
+        if (info.color === 'White') {
+          document.body.classList.add('easter-white-theme');
+        }
+      }
+
+      function normalizeSection(text) {
+        if (!text) {
+          return '';
         }
 
-        if (season === 'Pentecost') {
-          return { date: pentecost, label: 'Pentecost Sunday' };
-        }
+        return text
+          .replace(/\r/g, '')
+          .replace(/^\s+/gm, '')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
+      }
 
-        if (season === 'Holy Week') {
-          return { date: holySaturday, label: 'Holy Saturday' };
-        }
+      function escapeRegExp(text) {
+        return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      }
 
-        if (season === 'Lent') {
-          return { date: addDays(palmSunday, -1), label: 'Before Holy Week' };
-        }
+      function extractSection(markdown, heading) {
+        const sectionRegex = new RegExp(
+          '\\n##\\s+' + escapeRegExp(heading) + '\\s*\\n([\\s\\S]*?)(?=\\n##\\s+|$)',
+          'i'
+        );
+        const match = markdown.match(sectionRegex);
+        return match ? normalizeSection(match[1]) : '';
+      }
 
-        if (season === 'Advent') {
-          return { date: christmasEve, label: 'Christmas Eve' };
-        }
+      function parseWordOfDay(markdown) {
+        const dateMatch = markdown.match(/Date\s+(\d{2}\/\d{2}\/\d{4})/i);
+        const liturgicalDayMatch = markdown.match(/Date\s+\d{2}\/\d{2}\/\d{4}\s*\n\s*\n([^\n]+)/i);
 
-        if (season === 'Christmastide') {
-          const endDate = d.getMonth() === 11 ? getBaptismOfLord(year + 1) : getBaptismOfLord(year);
-          return { date: endDate, label: 'Baptism of the Lord' };
-        }
+        const reading = extractSection(markdown, 'Reading of the day');
+        const gospel = extractSection(markdown, 'Gospel of the day');
+        const pope = extractSection(markdown, 'The words of the popes');
 
-        if (season === 'Ordinary Time') {
-          if (d < ashWednesday) {
-            return { date: addDays(ashWednesday, -1), label: 'Before Lent' };
+        return {
+          sourceDate: dateMatch ? dateMatch[1] : '',
+          liturgicalDay: liturgicalDayMatch ? liturgicalDayMatch[1].trim() : '',
+          reading,
+          gospel,
+          pope,
+        };
+      }
+
+      function getDateBasedWordOfDayPrintUrl() {
+        const now = new Date();
+        const year = String(now.getFullYear());
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        return 'https://r.jina.ai/http://www.vaticannews.va/en/word-of-the-day/' + year + '/' + month + '/' + day + '.print.html';
+      }
+
+      async function loadDailyReadings() {
+        const readingEl = document.getElementById('reading-text');
+        const gospelEl = document.getElementById('gospel-text');
+        const popeEl = document.getElementById('pope-text');
+        const readingNote = document.getElementById('reading-note');
+
+        const fallback = {
+          reading: 'Daily readings are temporarily unavailable. Tap the button below to open Vatican Word of the Day directly.',
+          gospel: 'Please use the Vatican source page for the complete Gospel text and references for today.',
+          pope: 'A daily papal reflection is available on the Vatican Word of the Day page.',
+        };
+
+        try {
+          const response = await fetch(getDateBasedWordOfDayPrintUrl(), {
+            cache: 'no-store',
+          });
+
+          let markdown = '';
+          if (response.ok) {
+            markdown = await response.text();
           }
-          return { date: addDays(adventStart, -1), label: 'Before Advent' };
-        }
 
-        return null;
-      }
+          if (!markdown || !/##\s+Reading of the day/i.test(markdown)) {
+            const fallbackResponse = await fetch('https://r.jina.ai/http://www.vaticannews.va/en/word-of-the-day.html', {
+              cache: 'no-store',
+            });
 
-      const today = new Date();
-      const info = getLiturgicalInfo(today);
+            if (!fallbackResponse.ok) {
+              throw new Error('Failed to fetch reading source.');
+            }
 
-      if (info.season === 'Eastertide') {
-        document.body.classList.add('easter-white-theme');
-      }
-
-      document.getElementById('season-label').textContent = info.season;
-      document.getElementById('widget-season').textContent = info.season;
-      document.getElementById('color-text').textContent = info.color;
-      document.getElementById('widget-color').textContent = info.color;
-      document.getElementById('date-text').textContent = formatDate(today);
-      document.getElementById('description-text').textContent = info.description;
-
-      const seasonEndEl = document.getElementById('season-end');
-      const seasonEndInfo = getSeasonEndInfo(today, info.season);
-      if (seasonEndInfo) {
-        seasonEndEl.textContent = `Season ends: ${formatMonthDayOrdinal(seasonEndInfo.date)}`;
-      } else {
-        seasonEndEl.style.display = 'none';
-      }
-
-      const noteEl = document.getElementById('note-label');
-      if (info.note) {
-        noteEl.textContent = info.note;
-      } else {
-        noteEl.style.display = 'none';
-      }
-
-      const appIcon = document.querySelector('.app-icon');
-      if (appIcon) {
-        appIcon.style.backgroundColor = info.darkColorHex;
-      }
-
-      const colorDot = document.getElementById('color-dot');
-      if (colorDot) {
-        colorDot.style.backgroundColor = info.colorHex;
-      }
-
-      const saintFeastEl = document.getElementById('saint-feast');
-      loadSaintFeastDay(today)
-        .then((saintName) => {
-          if (saintName) {
-            saintFeastEl.textContent = saintName;
-            saintFeastEl.hidden = false;
-          } else {
-            saintFeastEl.hidden = true;
+            markdown = await fallbackResponse.text();
           }
-        })
-        .catch(() => {
-          saintFeastEl.hidden = true;
-        });
 
-      document.documentElement.style.setProperty('--current-color', info.colorHex);
-      document.documentElement.style.setProperty('--current-dark-color', info.darkColorHex);
-      document.documentElement.style.setProperty('--current-dot-border', info.darkColorHex);
+          const parsed = parseWordOfDay(markdown);
+
+          readingEl.textContent = parsed.reading || fallback.reading;
+          gospelEl.textContent = parsed.gospel || fallback.gospel;
+          popeEl.textContent = parsed.pope || fallback.pope;
+
+          if (parsed.liturgicalDay) {
+            readingNote.textContent = parsed.liturgicalDay;
+          }
+        } catch (error) {
+          readingEl.textContent = fallback.reading;
+          gospelEl.textContent = fallback.gospel;
+          popeEl.textContent = fallback.pope;
+        }
+      }
+
+      applyLiturgicalTheme();
+      loadDailyReadings();
     </script>
   </body>
 </html>
