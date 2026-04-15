@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>Liturgia Daily | Daily Reading</title>
+    <meta
+      name="description"
+      content="Liturgia Daily: daily readings and Gospel themed to today's liturgical season and color."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <button id="nav-toggle" class="top-logo-button" type="button" aria-label="Open navigation menu" aria-controls="side-nav" aria-expanded="false">
+      <img class="top-logo-icon" src="../../Images/Liturgia_Daily_Logo.png" alt="">
+    </button>
+    <div id="nav-overlay" class="side-nav-overlay" aria-hidden="true"></div>
+    <nav id="side-nav" class="side-nav-panel" aria-label="Site navigation">
+      <h2 class="side-nav-title">Navigate</h2>
+      <ul class="side-nav-list">
+        <li><a class="side-nav-link" href="../../index.html">Home</a></li>
+        <li><a class="side-nav-link" href="daily-prayer.html">Daily Prayer</a></li>
+        <li><a class="side-nav-link" href="daily-reading.html">Daily Reading</a></li>
+      </ul>
+    </nav>
+
+    <main class="page-shell">
+      <header class="brand fade-in-up delay-1">
+        <p class="brand-kicker">LITURGIA DAILY</p>
+        <div class="brand-rule" aria-hidden="true"></div>
+      </header>
+
+      <section class="hero fade-in-up delay-2" aria-label="Daily readings heading">
+        <img class="app-icon" src="../../Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
+        <h1>Daily Reading</h1>
+        <h2 id="reading-note">Word of the Day</h2>
+        <p id="date-text" class="date"></p>
+      </section>
+
+      <section class="reflection fade-in-up delay-3" aria-label="Reading of the day">
+        <h3 class="reading-heading">Reading of the Day</h3>
+        <p id="reading-text" class="reading-body">Loading reading...</p>
+      </section>
+
+      <section class="reflection fade-in-up delay-4" aria-label="Gospel of the day">
+        <h3 class="reading-heading">Gospel of the Day</h3>
+        <p id="gospel-text" class="reading-body">Loading Gospel...</p>
+      </section>
+
+      <section class="reflection fade-in-up delay-5" aria-label="Words of the Popes">
+        <h3 class="reading-heading">Words of the Popes</h3>
+        <p id="pope-text" class="reading-body">Loading reflection...</p>
+      </section>
+
+      <section class="page-actions fade-in-up delay-5" aria-label="Reading resources">
+        <a class="liturgia-button" href="https://www.vaticannews.va/en/word-of-the-day.html" target="_blank" rel="noopener noreferrer">Open Vatican Word of the Day</a>
+      </section>
+    </main>
+
+    <script src="../scripts/nav.js"></script>
+    <script src="../scripts/liturgical-core.js"></script>
+    <script src="../scripts/daily-reading-page.js"></script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>Liturgia Daily | Daily Prayer</title>
+    <meta
+      name="description"
+      content="Liturgia Daily: a daily prayer page that follows today's liturgical season and color."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <button id="nav-toggle" class="top-logo-button" type="button" aria-label="Open navigation menu" aria-controls="side-nav" aria-expanded="false">
+      <img class="top-logo-icon" src="../../Images/Liturgia_Daily_Logo.png" alt="">
+    </button>
+    <div id="nav-overlay" class="side-nav-overlay" aria-hidden="true"></div>
+    <nav id="side-nav" class="side-nav-panel" aria-label="Site navigation">
+      <h2 class="side-nav-title">Navigate</h2>
+      <ul class="side-nav-list">
+        <li><a class="side-nav-link" href="../../index.html">Home</a></li>
+        <li><a class="side-nav-link" href="daily-prayer.html">Daily Prayer</a></li>
+        <li><a class="side-nav-link" href="daily-reading.html">Daily Reading</a></li>
+      </ul>
+    </nav>
+
+    <main class="page-shell">
+      <header class="brand fade-in-up delay-1">
+        <p class="brand-kicker">LITURGIA DAILY</p>
+        <div class="brand-rule" aria-hidden="true"></div>
+      </header>
+
+      <section class="hero fade-in-up delay-2" aria-label="Daily prayer heading">
+        <img class="app-icon" src="../../Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
+        <h1>Daily Prayer</h1>
+        <h2 id="prayer-note">For Today</h2>
+        <p id="date-text" class="date"></p>
+      </section>
+
+      <section class="reflection fade-in-up delay-3" aria-label="Prayer of the day">
+        <p id="prayer-text"></p>
+      </section>
+
+      <section class="reflection fade-in-up delay-4" aria-label="Prayer intention">
+        <p id="intention-text"></p>
+      </section>
+
+      <section class="page-actions fade-in-up delay-5" aria-label="Prayer resources">
+        <a class="liturgia-button" href="https://www.heartofthenation.org/prayer-resources/todays-prayer-for-you" target="_blank" rel="noopener noreferrer">Open Today's Prayer Resource</a>
+      </section>
+    </main>
+
+    <script src="../scripts/nav.js"></script>
+    <script src="../scripts/liturgical-core.js"></script>
+    <script src="../scripts/daily-prayer-page.js"></script>
+  </body>
+</html>
