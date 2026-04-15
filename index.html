@@ -16,7 +16,7 @@
     >
     <link rel="stylesheet" href="src/styles.css">
   </head>
-  <body>
+  <body class="home-page">
     <button id="nav-toggle" class="top-logo-button" type="button" aria-label="Open navigation menu" aria-controls="side-nav" aria-expanded="false">
       <img class="top-logo-icon" src="Images/Liturgia_Daily_Logo.png" alt="">
     </button>
@@ -38,9 +38,11 @@
       </header>
 
       <section class="hero fade-in-up delay-2" aria-label="Daily liturgical summary">
-        <img class="app-icon" data-color="White" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
-        <h1 id="season-label">Loading...</h1>
-        <h2 id="note-label">Liturgical Note</h2>
+        <div class="hero-primary">
+          <img class="app-icon" data-color="White" src="Images/Liturgia_Daily_Logo.png" alt="Liturgia Daily Logo">
+          <h1 id="season-label">Loading...</h1>
+          <h2 id="note-label">Liturgical Note</h2>
+        </div>
         <p id="season-end" class="season-end">Season ends: Loading...</p>
         <p id="saint-feast" class="saint-feast" hidden></p>
         <p class="color-line">
@@ -54,7 +56,10 @@
       </section>
 
       <section class="page-actions fade-in-up delay-4" aria-label="Page actions">
-        <a class="liturgia-button" href="src/html/daily-prayer.html">Open Daily Prayer</a>
+        <div class="button-row">
+          <a class="liturgia-button" href="src/html/daily-prayer.html">Open Daily Prayer</a>
+          <a class="liturgia-button" href="src/html/daily-reading.html">Open Daily Reading</a>
+        </div>
       </section>
 
       <section class="widget-area fade-in-up delay-5" aria-label="Widget preview">

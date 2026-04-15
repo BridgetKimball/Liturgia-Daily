@@ -16,7 +16,7 @@
   document.getElementById('widget-season').textContent = info.season;
   document.getElementById('color-text').textContent = info.color;
   document.getElementById('widget-color').textContent = info.color;
-  document.getElementById('date-text').textContent = core.formatDate(today);
+  document.getElementById('date-text').textContent = core.formatDateWithOrdinal(today);
   document.getElementById('description-text').textContent = info.description;
 
   const seasonEndEl = document.getElementById('season-end');

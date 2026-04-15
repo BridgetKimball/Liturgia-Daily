@@ -53,9 +53,6 @@ body {
   overflow-x: hidden;
 }
 
-body.easter-white-theme {
-}
-
 body.easter-white-theme .reflection {
   background: linear-gradient(115deg, rgba(255, 255, 255, 0.94), rgba(248, 240, 220, 0.88));
   border-color: rgba(199, 168, 92, 0.5);
@@ -273,6 +270,17 @@ body.easter-white-theme .top-logo-button {
   width: 100%;
 }
 
+.hero-primary {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 0;
+}
+
+body.home-page .hero-primary {
+  transform: translateY(-7px);
+}
+
 .app-icon {
   width: 88px;
   height: 88px;
@@ -305,6 +313,7 @@ body.easter-white-theme .top-logo-button {
   text-transform: uppercase;
   color: var(--text-secondary);
 }
+
 
 .season-end {
   margin: 0 0 10px;
@@ -392,6 +401,14 @@ body.easter-white-theme .top-logo-button {
 .page-actions {
   display: grid;
   place-items: center;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
 .liturgia-button {
@@ -551,6 +568,10 @@ body.easter-white-theme .top-logo-button {
     height: 56px;
     border-radius: 12px;
     margin-bottom: 6px;
+  }
+
+  .hero-primary {
+    gap: 0;
   }
 
   .hero h1 {

@@ -33,9 +33,19 @@
   }
 
   function extractPrayerFromMarkdown(markdown) {
-    const headingMatch = markdown.match(/##\s+([^\n]*Prayer[^\n]*)\n/);
-    const prayerBlockMatch = markdown.match(
-      /##\s+[^\n]*Prayer[^\n]*\n\n([\s\S]*?)\n\n\[Read More Prayers for You\]/
+    const pageStartMatch = markdown.match(/#\s+Today[’']s Prayer for\s+You/i);
+    if (!pageStartMatch) {
+      return null;
+    }
+
+    const sectionStartIndex = pageStartMatch ? pageStartMatch.index : 0;
+    const sectionMarkdown = markdown.slice(sectionStartIndex);
+    const sectionEndIndex = sectionMarkdown.search(/\n##\s+PRAYER RESOURCES/i);
+    const prayerSection = sectionEndIndex >= 0 ? sectionMarkdown.slice(0, sectionEndIndex) : sectionMarkdown;
+
+    const headingMatch = prayerSection.match(/##\s+([^\n]+)\n/);
+    const prayerBlockMatch = prayerSection.match(
+      /##\s+[^\n]+\n(?:\n|(?:!\[[^\]]*\]\([^)]+\)\n)+)([\s\S]*?)(?=\n\n\[Read More Prayers for You\]|\n\n##\s+PRAYER RESOURCES|$)/i
     );
 
     if (!headingMatch || !prayerBlockMatch) {
@@ -43,7 +53,10 @@
     }
 
     const heading = headingMatch[1].trim();
-    const prayerText = prayerBlockMatch[1].replace(/\s+/g, ' ').trim();
+    const prayerText = prayerBlockMatch[1]
+      .replace(/\s+/g, ' ')
+      .replace(/\s+([,.!?;:])/g, '$1')
+      .trim();
 
     if (!prayerText) {
       return null;
@@ -75,7 +88,7 @@
     document.body.classList.add('easter-white-theme');
   }
 
-  document.getElementById('date-text').textContent = core.formatDate(today);
+  document.getElementById('date-text').textContent = core.formatDateWithOrdinal(today);
   document.getElementById('intention-text').textContent = getIntention(info.color);
 
   const prayerNote = document.getElementById('prayer-note');
