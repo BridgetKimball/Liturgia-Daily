@@ -33,7 +33,6 @@
       <header class="brand fade-in-up delay-1">
         <p class="brand-kicker">LITURGIA DAILY</p>
         <div class="brand-rule" aria-hidden="true"></div>
-        <p></p>
         <p id="date-text" class="date"></p>
       </header>
 
@@ -42,6 +41,7 @@
         <h1 id="season-label">Loading...</h1>
         <h2 id="note-label">Liturgical Note</h2>
         <p id="season-end" class="season-end">Season ends: Loading...</p>
+        <p id="saint-feast" class="saint-feast" hidden></p>
         <p class="color-line">
           <span id="color-dot" class="color-dot" aria-hidden="true"></span>
           <span id="color-text">Loading...</span>
@@ -151,6 +151,45 @@
           return new Date(year, 0, 13);
         }
         return new Date(year, 0, 6 + (7 - epiphanyDay));
+      }
+
+      function getMonthName(date) {
+        return MONTH_NAMES[date.getMonth()];
+      }
+
+      function parseFeastDayText(markdown, targetDate) {
+        const monthName = getMonthName(targetDate);
+        const day = targetDate.getDate();
+        const monthRegex = new RegExp(`\\#\\s+${monthName}\\s+${targetDate.getFullYear()}([\\s\\S]*?)(?=\\n#\\s+[A-Z][a-z]+\\s+${targetDate.getFullYear()}|\\n#### Month-by-Month Tags|$)`);
+        const monthMatch = markdown.match(monthRegex);
+        const searchBlock = monthMatch ? monthMatch[1] : markdown;
+
+        const escapedDay = String(day).replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const bracketAfterDay = new RegExp(`\\[([^\\]]+)\\]\\s*${escapedDay}(?!\\d)`, 'm');
+        const dayAfterBracket = new RegExp(`\\b${escapedDay}\\b\\s*\\[([^\\]]+)\\]`, 'm');
+
+        const match = searchBlock.match(bracketAfterDay) || searchBlock.match(dayAfterBracket);
+        if (!match) {
+          return null;
+        }
+
+        const raw = match[1].replace(/\s+/g, ' ').trim();
+        if (!raw || !/[A-Za-z]/.test(raw)) {
+          return null;
+        }
+
+        return raw;
+      }
+
+      async function loadSaintFeastDay(date) {
+        const sourceUrl = 'https://r.jina.ai/http://www.catholicapostolatecenterfeastdays.org/feast-day-calendar';
+        const response = await fetch(sourceUrl);
+        if (!response.ok) {
+          throw new Error(`Feast day source request failed: ${response.status}`);
+        }
+
+        const markdown = await response.text();
+        return parseFeastDayText(markdown, date);
       }
 
       function getLiturgicalInfo(date) {
@@ -418,6 +457,20 @@
       if (colorDot) {
         colorDot.style.backgroundColor = info.colorHex;
       }
+
+      const saintFeastEl = document.getElementById('saint-feast');
+      loadSaintFeastDay(today)
+        .then((saintName) => {
+          if (saintName) {
+            saintFeastEl.textContent = saintName;
+            saintFeastEl.hidden = false;
+          } else {
+            saintFeastEl.hidden = true;
+          }
+        })
+        .catch(() => {
+          saintFeastEl.hidden = true;
+        });
 
       document.documentElement.style.setProperty('--current-color', info.colorHex);
       document.documentElement.style.setProperty('--current-dark-color', info.darkColorHex);

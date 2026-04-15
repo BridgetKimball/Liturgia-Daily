@@ -14,6 +14,18 @@
   --shadow-strong: 0 30px 60px rgba(0, 0, 0, 0.35);
   --shadow-soft: 0 16px 36px rgba(0, 0, 0, 0.2);
 }
+  .saint-feast {
+    margin: 8px 0 0;
+    color: #f7ead0;
+    font-size: clamp(0.88rem, 2.6vw, 1.05rem);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  #saint-feast[hidden] {
+    display: none !important;
+  }
 
 * {
   box-sizing: border-box;
@@ -42,14 +54,6 @@ body {
 }
 
 body.easter-white-theme {
-  --bg-1: #3b2608;
-  --bg-2: #8a682d;
-  --bg-3: #d3bc85;
-  --text-primary: #ffffff;
-  --text-secondary: #f7f7f7;
-  --text-muted: #f0f0f0;
-  --current-color: #ffffff;
-  --current-dot-border: #d9c074;
 }
 
 body.easter-white-theme .reflection {
@@ -331,6 +335,15 @@ body.easter-white-theme .top-logo-button {
   font-size: clamp(0.76rem, 2.5vw, 0.92rem);
   font-weight: 600;
   letter-spacing: 0.01em;
+}
+
+.saint-feast {
+  margin: 8px 0 0;
+  color: #f7ead0;
+  font-size: clamp(0.88rem, 2.6vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-align: center;
 }
 
 .reflection {
