@@ -1,13 +1,13 @@
 {
   "name": "liturgia-daily",
   "version": "1.0.0",
-  "main": "src/app/index.js",
+  "main": "src/scripts/mobile/app/index.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "check:usccb": "node scripts/usccb-calendar-check.js",
+    "check:usccb": "node src/scripts/usccb-calendar-check.js",
     "test": "jest"
   },
   "dependencies": {

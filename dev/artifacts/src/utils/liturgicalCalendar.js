@@ -1,1 +1,1 @@
-module.exports = require('../../../../src/lib/liturgicalCalendar');
+module.exports = require('../../../../src/scripts/mobile/lib/liturgicalCalendar');

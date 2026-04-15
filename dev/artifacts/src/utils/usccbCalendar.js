@@ -1,1 +1,1 @@
-module.exports = require('../../../../src/lib/usccbCalendar');
+module.exports = require('../../../../src/scripts/mobile/lib/usccbCalendar');

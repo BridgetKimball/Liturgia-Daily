@@ -2,7 +2,7 @@
 
 const {
   compareUsccbCalendarAgainstLocalCalendar,
-} = require('../src/lib/usccbCalendar');
+} = require('./mobile/lib/usccbCalendar');
 
 async function main() {
   const yearArg = process.argv[2] || new Date().getFullYear();

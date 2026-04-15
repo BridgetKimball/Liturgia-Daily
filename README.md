@@ -82,7 +82,7 @@ Future updates may include:
 - **Framework**: [Expo](https://expo.dev/) (SDK ~54) with [React Native](https://reactnative.dev/)
 - **Platforms**: iOS, Android, and Web (via `react-native-web`)
 - **Language**: JavaScript (React)
-- **Liturgical Calendar Logic**: Custom pure-JS implementation in `src/lib/liturgicalCalendar.js`, based on the Roman Catholic liturgical calendar
+- **Liturgical Calendar Logic**: Custom pure-JS implementation in `src/scripts/mobile/lib/liturgicalCalendar.js`, based on the Roman Catholic liturgical calendar
 
 ---
 
