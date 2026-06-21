@@ -217,12 +217,25 @@ function extractSection(markdown, heading) {
   return match ? normalizeSection(match[1]) : '';
 }
 
+function cleanPopeSection(text) {
+  if (!text) {
+    return '';
+  }
+
+  return text
+    .replace(/\n*!\[[^\]]*\]\([^\)]+\)\s*/gi, '\n')
+    .replace(/\n?Coming\s+soon[\s\S]*$/i, '')
+    .replace(/\n?\d{2}-\d{2}-\d{4}\s+\d{2}:\d{2}\s*$/i, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 function parseWordOfDay(markdown) {
   const liturgicalDayMatch = markdown.match(/Date\s+\d{2}\/\d{2}\/\d{4}\s*\n\s*\n([^\n]+)/i);
 
   const reading = extractSection(markdown, 'Reading of the day');
   const gospel = extractSection(markdown, 'Gospel of the day');
-  const pope = extractSection(markdown, 'The words of the popes');
+  const pope = cleanPopeSection(extractSection(markdown, 'The words of the popes'));
 
   return {
     liturgicalDay: liturgicalDayMatch ? liturgicalDayMatch[1].trim() : '',

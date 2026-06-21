@@ -83,10 +83,7 @@
 
   const today = new Date();
   const info = core.getLiturgicalInfo(today);
-
-  if (info.season === 'Eastertide') {
-    document.body.classList.add('easter-white-theme');
-  }
+  core.applySeasonTheme(info);
 
   document.getElementById('date-text').textContent = core.formatDateWithOrdinal(today);
   document.getElementById('intention-text').textContent = getIntention(info.color);

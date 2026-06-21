@@ -2,12 +2,38 @@
   --bg-1: #2a1603;
   --bg-2: #6e4b17;
   --bg-3: #8a6a32;
+  --glow-1: rgba(255, 220, 145, 0.18);
+  --glow-2: rgba(255, 194, 102, 0.14);
   --glass: rgba(20, 12, 6, 0.56);
+  --glass-border: rgba(247, 238, 220, 0.13);
   --text-primary: #f4efe6;
   --text-secondary: #ded2bf;
   --text-muted: #c2b49b;
+  --heading-color: #d7c9ac;
+  --reflection-text: #ece4d6;
   --card: #e8e1c9;
   --card-accent: #cfad42;
+  --widget-text: #6f5a20;
+  --widget-season: #c5a036;
+  --widget-color: #c5a036;
+  --widget-dot: #ceb05f;
+  --saint-feast-color: #f7ead0;
+  --button-bg-1: rgba(18, 10, 5, 0.84);
+  --button-bg-2: rgba(56, 31, 8, 0.8);
+  --button-border: rgba(245, 239, 213, 0.28);
+  --button-text: #f5efd5;
+  --top-button-bg-1: rgba(20, 12, 6, 0.9);
+  --top-button-bg-2: rgba(74, 41, 12, 0.9);
+  --top-button-border: rgba(245, 239, 213, 0.24);
+  --nav-bg-1: rgba(16, 9, 4, 0.97);
+  --nav-bg-2: rgba(54, 31, 11, 0.95);
+  --nav-border: rgba(245, 239, 213, 0.2);
+  --nav-title: #f5efd5;
+  --nav-link-text: #f5efd5;
+  --nav-link-bg: rgba(255, 255, 255, 0.04);
+  --nav-link-border: rgba(245, 239, 213, 0.2);
+  --nav-link-hover-bg: rgba(245, 239, 213, 0.12);
+  --brand-rule: rgba(247, 238, 220, 0.45);
   --current-color: #ffffff;
   --current-dark-color: #c8a951;
   --current-dot-border: #8a6a32;
@@ -46,8 +72,8 @@ body {
   font-family: "Inter", "Segoe UI", sans-serif;
   color: var(--text-primary);
   background:
-    radial-gradient(circle at 15% 15%, rgba(255, 220, 145, 0.18), transparent 40%),
-    radial-gradient(circle at 85% 20%, rgba(255, 194, 102, 0.14), transparent 34%),
+    radial-gradient(circle at 15% 15%, var(--glow-1), transparent 40%),
+    radial-gradient(circle at 85% 20%, var(--glow-2), transparent 34%),
     linear-gradient(150deg, var(--bg-1) 0%, var(--bg-2) 52%, var(--bg-3) 100%);
   background-attachment: fixed;
   overflow-x: hidden;
@@ -108,8 +134,8 @@ body.easter-white-theme .top-logo-button {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  border: 1px solid rgba(245, 239, 213, 0.24);
-  background: linear-gradient(130deg, rgba(20, 12, 6, 0.9), rgba(74, 41, 12, 0.9));
+  border: 1px solid var(--top-button-border);
+  background: linear-gradient(130deg, var(--top-button-bg-1), var(--top-button-bg-2));
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
   display: grid;
   place-items: center;
@@ -151,8 +177,8 @@ body.easter-white-theme .top-logo-button {
   width: min(84vw, 320px);
   height: 100dvh;
   padding: 24px 20px;
-  background: linear-gradient(170deg, rgba(16, 9, 4, 0.97), rgba(54, 31, 11, 0.95));
-  border-left: 1px solid rgba(245, 239, 213, 0.2);
+  background: linear-gradient(170deg, var(--nav-bg-1), var(--nav-bg-2));
+  border-left: 1px solid var(--nav-border);
   box-shadow: -22px 0 44px rgba(0, 0, 0, 0.4);
   transform: translateX(100%);
   transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -167,7 +193,7 @@ body.easter-white-theme .top-logo-button {
   font-family: "Cinzel", Georgia, serif;
   font-size: 1.1rem;
   letter-spacing: 0.1rem;
-  color: #f5efd5;
+  color: var(--nav-title);
 }
 
 .side-nav-list {
@@ -181,18 +207,18 @@ body.easter-white-theme .top-logo-button {
 .side-nav-link {
   display: block;
   text-decoration: none;
-  color: #f5efd5;
+  color: var(--nav-link-text);
   font-weight: 700;
   letter-spacing: 0.04em;
   border-radius: 12px;
-  border: 1px solid rgba(245, 239, 213, 0.2);
-  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--nav-link-border);
+  background: var(--nav-link-bg);
   padding: 12px 14px;
   transition: background 0.18s ease, transform 0.18s ease;
 }
 
 .side-nav-link:hover {
-  background: rgba(245, 239, 213, 0.12);
+  background: var(--nav-link-hover-bg);
   transform: translateX(-2px);
 }
 
@@ -262,7 +288,7 @@ body.easter-white-theme .top-logo-button {
   width: 82px;
   height: 2px;
   margin: 12px auto 0;
-  background: rgba(247, 238, 220, 0.45);
+  background: var(--brand-rule);
 }
 
 .hero {
@@ -352,7 +378,7 @@ body.home-page .hero-primary {
 
 .saint-feast {
   margin: 8px 0 0;
-  color: #f7ead0;
+  color: var(--saint-feast-color);
   font-size: clamp(0.88rem, 2.6vw, 1.05rem);
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -363,7 +389,7 @@ body.home-page .hero-primary {
   padding: 20px 18px 12px;
   border-radius: 22px;
   background: linear-gradient(110deg, rgba(20, 12, 6, 0.68), var(--glass));
-  border: 1px solid rgba(247, 238, 220, 0.13);
+  border: 1px solid var(--glass-border);
   box-shadow: var(--shadow-strong);
 }
 
@@ -374,7 +400,7 @@ body.home-page .hero-primary {
   font-weight: 700;
   font-size: clamp(1.2rem, 3.2vw, 1.8rem);
   line-height: 1.38;
-  color: #ece4d6;
+  color: var(--reflection-text);
 }
 
 .reading-heading {
@@ -383,7 +409,7 @@ body.home-page .hero-primary {
   font-family: "Cinzel", Georgia, serif;
   font-size: clamp(0.95rem, 2.7vw, 1.3rem);
   letter-spacing: 0.08rem;
-  color: #d7c9ac;
+  color: var(--heading-color);
 }
 
 .reading-body {
@@ -416,9 +442,9 @@ body.home-page .hero-primary {
   text-decoration: none;
   padding: 12px 20px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 239, 213, 0.28);
-  background: linear-gradient(120deg, rgba(18, 10, 5, 0.84), rgba(56, 31, 8, 0.8));
-  color: #f5efd5;
+  border: 1px solid var(--button-border);
+  background: linear-gradient(120deg, var(--button-bg-1), var(--button-bg-2));
+  color: var(--button-text);
   font-weight: 700;
   letter-spacing: 0.06em;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -442,7 +468,7 @@ body.home-page .hero-primary {
   padding: 22px 18px 20px;
   text-align: center;
   background: var(--card);
-  color: #6f5a20;
+  color: var(--widget-text);
   box-shadow: var(--shadow-soft);
 }
 
@@ -467,20 +493,20 @@ body.home-page .hero-primary {
   margin: 0;
   font-size: clamp(1.55rem, 4.8vw, 2rem);
   font-weight: 800;
-  color: #c5a036;
+  color: var(--widget-season);
 }
 
 .widget-color {
   margin: 10px 0 0;
   font-size: clamp(1.35rem, 4vw, 1.72rem);
   font-weight: 700;
-  color: #c5a036;
+  color: var(--widget-color);
 }
 
 .widget-color::before {
   content: "•";
   margin-right: 0.42rem;
-  color: #ceb05f;
+  color: var(--widget-dot);
 }
 
 .fade-in-up {

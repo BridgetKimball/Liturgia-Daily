@@ -30,12 +30,25 @@
     return match ? normalizeSection(match[1]) : '';
   }
 
+  function cleanPopeSection(text) {
+    if (!text) {
+      return '';
+    }
+
+    return text
+      .replace(/\n*!\[[^\]]*\]\([^\)]+\)\s*/gi, '\n')
+      .replace(/\n?Coming\s+soon[\s\S]*$/i, '')
+      .replace(/\n?\d{2}-\d{2}-\d{4}\s+\d{2}:\d{2}\s*$/i, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+  }
+
   function parseWordOfDay(markdown) {
     const liturgicalDayMatch = markdown.match(/Date\s+\d{2}\/\d{2}\/\d{4}\s*\n\s*\n([^\n]+)/i);
 
     const reading = extractSection(markdown, 'Reading of the day');
     const gospel = extractSection(markdown, 'Gospel of the day');
-    const pope = extractSection(markdown, 'The words of the popes');
+    const pope = cleanPopeSection(extractSection(markdown, 'The words of the popes'));
 
     return {
       liturgicalDay: liturgicalDayMatch ? liturgicalDayMatch[1].trim() : '',
@@ -105,17 +118,17 @@
 
   const today = new Date();
   const info = core.getLiturgicalInfo(today);
+  core.applySeasonTheme(info);
 
   document.documentElement.style.setProperty('--liturgical-color', info.colorHex);
   document.documentElement.style.setProperty('--liturgical-color-dark', info.darkColorHex);
+  document.documentElement.style.setProperty('--current-color', info.colorHex);
+  document.documentElement.style.setProperty('--current-dark-color', info.darkColorHex);
+  document.documentElement.style.setProperty('--current-dot-border', info.darkColorHex);
   document.getElementById('date-text').textContent = core.formatDateWithOrdinal(today);
 
   const noteSuffix = info.note ? ' - ' + info.note : '';
   document.getElementById('reading-note').textContent = info.season + noteSuffix;
-
-  if (info.color === 'White') {
-    document.body.classList.add('easter-white-theme');
-  }
 
   loadDailyReadings();
 })();

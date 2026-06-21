@@ -7,10 +7,7 @@
 
   const today = new Date();
   const info = core.getLiturgicalInfo(today);
-
-  if (info.season === 'Eastertide') {
-    document.body.classList.add('easter-white-theme');
-  }
+  core.applySeasonTheme(info);
 
   document.getElementById('season-label').textContent = info.season;
   document.getElementById('widget-season').textContent = info.season;
