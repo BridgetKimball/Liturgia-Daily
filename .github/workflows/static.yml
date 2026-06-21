@@ -30,14 +30,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
+      - name: Prepare site
+        run: |
+          mkdir -p _site/src/html _site/src/scripts
+          cp index.html _site/
+          cp -R Images _site/
+          cp -R "Liturgical Calendars" _site/
+          cp src/html/daily-prayer.html _site/src/html/
+          cp src/html/daily-reading.html _site/src/html/
+          cp src/scripts/nav.js _site/src/scripts/
+          cp src/scripts/liturgical-core.js _site/src/scripts/
+          cp src/scripts/home-page.js _site/src/scripts/
+          cp src/scripts/daily-prayer-page.js _site/src/scripts/
+          cp src/scripts/daily-reading-page.js _site/src/scripts/
+          cp src/styles.css _site/src/
+          find _site -name .DS_Store -delete
+          touch _site/.nojekyll
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          # Upload entire repository
-          path: '.'
+          path: '_site'
+          include-hidden-files: true
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
